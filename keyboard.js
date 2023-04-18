@@ -1,7 +1,7 @@
 export const width_base = 80;
 export const height_base = 80;
 
-const gap = 8;
+export const gap = 8;
 
 export const arr = [
   //////////////  1 ряд /////////////////////////

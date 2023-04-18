@@ -1,4 +1,4 @@
-import { arr } from "./keyboard.js";
+import { arr, gap } from "./keyboard.js";
 
 class Keyboard {
   canvas_width = 1420;
@@ -27,6 +27,13 @@ class Keyboard {
     this.animate_name = this.animate.bind(this);
 
     this.txt = document.getElementById("txt");
+
+    this.element.offscreenCanvas = document.createElement("canvas");
+    this.element.offscreenCanvas.width = this.canvas_width;
+    this.element.offscreenCanvas.height = this.canvas_height;
+
+    this.ctx_back = this.element.getContext("2d");
+    this.ctx_back_art();
 
     this.arr.forEach((item, index) => {
       item.x_shadow = this.set_delta_x(item.width, item.x);
@@ -101,8 +108,8 @@ class Keyboard {
 
       arr[i].x_delta = progress_x;
       arr[i].y_delta = progress_y;
-
       this.ctx.clearRect(0, 0, this.canvas_width, this.canvas_height);
+      this.ctx_back_art();
 
       arr.forEach((item) => {
         this.art(item, item.x_delta, item.y_delta);
@@ -142,15 +149,9 @@ class Keyboard {
     this.ctx.fill();
 
     this.ctx.shadowOffsetX = 0;
-    this.ctx.shadowOffsetY = 0; //83240-60351
+    this.ctx.shadowOffsetY = 0;
     this.ctx.shadowBlur = "0";
-    this.ctx.roundRect(
-      el.x + x + el.width * this.inner,
-      el.y + y + el.height * this.inner,
-      el.width * (1 - this.inner * 2),
-      el.height * (1 - this.inner * 2),
-      [this.r]
-    );
+    this.ctx.roundRect(el.x + x + gap, el.y + y + gap, el.width - 2 * gap, el.height - 2 * gap, [this.r]);
     this.ctx.stroke();
 
     this.ctx.fillStyle = this.fillStyle_text;
@@ -159,6 +160,11 @@ class Keyboard {
     this.ctx.fillText(el.letter, el.x + el.width / 2 + x, el.y + el.height / 2 + y + 10);
 
     this.ctx.restore();
+  }
+
+  ctx_back_art() {
+    this.ctx_back.fillStyle = "orange";
+    this.ctx_back.fillRect(0, 0, this.canvas_width, this.canvas_height);
   }
 
   get_coord(e) {
