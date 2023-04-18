@@ -11,12 +11,16 @@ class Keyboard {
   strokeStyle_button = "black"
   fillStyle_button = "gray"
   shadowColor_button = "black"
+  
 
   constructor(){
     this.element = document.createElement("canvas")
     
-    canvas.setAttribute("id", "can");
-    const ctx = canvas.getContext("2d");
+    this.element.setAttribute("width", this.canvas_width);
+    this.element.setAttribute("height", this.canvas_height);
+    this.element.setAttribute("id", "can");
+    const ctx = this.element.getContext("2d");
+    this.arr = arr
 
 function set_delta_x(w, x){
   return ((this.canvas_width-w)/2-x)/this.canvas_width*this.delta_x_max
@@ -37,7 +41,7 @@ function art(el, x, y) {
   ctx.beginPath();
   ctx.shadowOffsetX = el.x_shadow - x;
   ctx.shadowOffsetY = el.y_shadow - y;
-  ctx.roundRect(el.x + x, el.y + y, el.width, el.height, [r]);
+  ctx.roundRect(el.x + x, el.y + y, el.width, el.height, [this.r]);
   ctx.fill();
 
   ctx.shadowOffsetX = 0;
@@ -47,7 +51,7 @@ function art(el, x, y) {
     el.y + y + el.height * this.inner,
     el.width * (1 - this.inner * 2),
     el.height * (1 - this.inner * 2),
-    [r]
+    [this.r]
   );
   ctx.stroke();
 
@@ -55,9 +59,9 @@ function art(el, x, y) {
 }
 
 this.arr.forEach((item, index) => {
-  item.x_shadow = set_delta_x(item.width, item.x)
-  item.y_shadow = set_delta_y(item.height, item.y)
-  art(item, item.x_delta, item.y_delta);
+  item.x_shadow = set_delta_x.call(this, item.width, item.x)
+  item.y_shadow = set_delta_y.call(this, item.height, item.y)
+  art.call(this, item, item.x_delta, item.y_delta);
 
   addEventListener('keydown',(event) => {
     if (event.code == item.code) {
@@ -99,7 +103,7 @@ const animate = function (i, delta) {
     ctx.clearRect(0, 0, 1200, 500);
 
     arr.forEach((item) => {
-      art(item, item.x_delta, item.y_delta);
+      art.call(this, item, item.x_delta, item.y_delta);
     });
 
     if (timeFraction < 1) {
@@ -111,8 +115,8 @@ const animate = function (i, delta) {
   });
 };
 
-const canvas_x = canvas.getBoundingClientRect().x;
-const canvas_y = canvas.getBoundingClientRect().y;
+const canvas_x = this.element.getBoundingClientRect().x;
+const canvas_y = this.element.getBoundingClientRect().y;
 let index;
 let animate_back;
 
@@ -128,10 +132,10 @@ addEventListener("mousedown", (e) => {
       item.x_delta = item.x_shadow;
       item.y_delta = item.y_shadow;
       index = i;
-      animate(index, 1);
+      animate.call(this, index, 1);
 
       animate_back = function () {
-        animate(index, -1);
+        animate.call(this, index, -1);
       };
 
       addEventListener("mouseup", animate_back);
