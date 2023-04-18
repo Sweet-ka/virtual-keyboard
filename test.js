@@ -1,13 +1,25 @@
 const canvas = document.getElementById("can");
 const ctx = canvas.getContext("2d");
 
-let x_delta = 5;
-let y_delta = 5;
+let canvas_width = 1200
+let canvas_height = 500
+let delta_x_max = 5;
+let delta_y_max = 5;
 let inner = 0.1;
 let y_end;
 let r = 8;
-let shadowOffsetX = x_delta;
-let shadowOffsetY = y_delta;
+
+let strokeStyle_button = "black"
+let fillStyle_button = "gray"
+let shadowColor_button = "black"
+
+function set_delta_x(w, x){
+  return ((canvas_width-w)/2-x)/canvas_width*delta_x_max
+}
+
+function set_delta_y(h, y){
+  return (canvas_height-h-y)/canvas_height*delta_y_max
+}
 
 let arr = [
   {
@@ -15,55 +27,42 @@ let arr = [
     height: 100,
     x: 10,
     y: 10,
+    x_shadow: 0,
+    y_shadow: 0,
     x_delta: 0,
     y_delta: 0,
+    code: "KeyZ"
   },
   {
     width: 100,
     height: 100,
-    x: 120,
+    x: 1000,
     y: 10,
+    x_shadow: 0,
+    y_shadow: 0,
     x_delta: 0,
     y_delta: 0,
+    code: "KeyX"
   },
 ];
 
+
 function art(el, x, y) {
-  //ctx.clearRect(0, 0, 1200, 500);
-  // ctx.fillStyle = "#0a4fbb";
-  ctx.strokeStyle = "black";
-  ctx.shadowColor = "black";
 
-  // ctx.beginPath();
-  // ctx.shadowOffsetY = 12;
-  // ctx.roundRect(10, 10, 100, 100, [8]);
-  // ctx.fill();
-  // ctx.shadowOffsetX = 0;
-
-  // ctx.shadowOffsetY = 0; //12 - (y1 - y0);
-
-  // ctx.roundRect(10, 10, 100, 100, [8]);
-  // ctx.roundRect(22, 18, 76, 76, [8]);
-  // ctx.stroke();
-  //let y1 = 20
+  ctx.strokeStyle = strokeStyle_button;
+  ctx.shadowColor = shadowColor_button;
 
   ctx.save();
-  ctx.fillStyle = "gray";
 
+  ctx.fillStyle = fillStyle_button;
   ctx.beginPath();
-  ctx.shadowOffsetX = x_delta - x;
-  ctx.shadowOffsetY = y_delta - y;
+  ctx.shadowOffsetX = el.x_shadow - x;
+  ctx.shadowOffsetY = el.y_shadow - y;
   ctx.roundRect(el.x + x, el.y + y, el.width, el.height, [r]);
-
-  //   ctx.beginPath();
-  //   ctx.shadowOffsetX = (y1 - y0) / 2;
-  //   ctx.roundRect(110 + y1 / 2, y1, 100, 100, [8]);
-
   ctx.fill();
 
   ctx.shadowOffsetX = 0;
   ctx.shadowOffsetY = 0;
-
   ctx.roundRect(
     el.x + x + el.width * inner,
     el.y + y + el.height * inner,
@@ -73,69 +72,53 @@ function art(el, x, y) {
   );
   ctx.stroke();
 
-  ctx.beginPath();
-  ctx.fillStyle = "black";
-  ctx.strokeStyle = "black";
-  ctx.lineWidth = 0;
-
-  // let x1, x2, x3, x4, u1, u2, u3, u4, xs, ys, xk, yk, wk, hk, dx, dy;
-
-  // ys = shadowOffsetY;
-  // xs = shadowOffsetY;
-
-  // dx = r - (r * ys) / Math.sqrt(xs * xs + ys * ys);
-  // dy = (r * xs) / Math.sqrt(xs * xs + ys * ys);
-  // xk = el.x;
-  // yk = el.y;
-  // wk = el.width;
-  // hk = el.height;
-  // x1 = xk;
-  // u1 = yk + hk - r;
-  // x2 = x1 + r;
-  // u2 = u1 + r;
-  // x3 = x2 + xs;
-  // u3 = u2 + ys;
-  // x4 = x3 - r;
-  // u4 = u3 - r;
-
-  // ctx.moveTo(x1, u1);
-  // ctx.arcTo(x1, u2, x2, u2, r);
-  // //ctx.moveTo(x1 + dx, u1 + dy);
-  // ctx.lineTo(x3, u3);
-  // ctx.arcTo(x4, u3, x4, u4, r);
-  // ctx.lineTo(x4 + dx, u4 + dy);
-  // ctx.lineTo(x1 + dx, u1 + dy);
-  // ctx.closePath();
-
-  ctx.fill();
-  //ctx.stroke();
-
   ctx.restore();
 }
 
-arr.forEach((item) => {
+arr.forEach((item, index) => {
+  item.x_shadow = set_delta_x(item.width, item.x)
+  item.y_shadow = set_delta_y(item.height, item.y)
   art(item, item.x_delta, item.y_delta);
+
+  addEventListener('keydown',(event) => {
+    if (event.code == item.code) {
+      item.x_delta = item.x_shadow;
+      item.y_delta = item.y_shadow;
+      animate(index, 1);
+    }
+  });
+  addEventListener('keyup',(event) => {
+    if (event.code == item.code) {
+      item.x_delta = item.x_shadow;
+      item.y_delta = item.y_shadow;
+      animate(index, -1);
+    }
+  });
 });
 
 const animate = function (i, delta) {
   let start = performance.now();
+
   requestAnimationFrame(function animate(time) {
     let timeFraction = (time - start) / 2;
     if (timeFraction > 1) timeFraction = 1;
     if (timeFraction < 0) timeFraction = 0;
-    // вычисление текущего состояния анимации
+
     let progress_x, progress_y;
+
     if (delta === 1) {
-      progress_x = x_delta * timeFraction;
-      progress_y = y_delta * timeFraction;
+      progress_x = arr[i].x_shadow * timeFraction;
+      progress_y = arr[i].y_shadow * timeFraction;
     } else if (delta === -1) {
-      progress_x = x_delta * (1 - timeFraction);
-      progress_y = y_delta * (1 - timeFraction);
+      progress_x = arr[i].x_shadow * (1 - timeFraction);
+      progress_y = arr[i].y_shadow * (1 - timeFraction);
     }
+
     arr[i].x_delta = progress_x;
     arr[i].y_delta = progress_y;
 
     ctx.clearRect(0, 0, 1200, 500);
+    
     arr.forEach((item) => {
       art(item, item.x_delta, item.y_delta);
     });
@@ -163,8 +146,8 @@ addEventListener("mousedown", (e) => {
       coord.ey >= item.y &&
       coord.ey <= item.y + item.height
     ) {
-      item.x_delta = x_delta;
-      item.y_delta = y_delta;
+      item.x_delta = item.x_shadow;
+      item.y_delta = item.y_shadow;
       index = i;
       animate(index, 1);
 
@@ -175,8 +158,6 @@ addEventListener("mousedown", (e) => {
       addEventListener("mouseup", animate_back);
     }
   });
-
-  //}
 });
 
 function get_coord(e) {
