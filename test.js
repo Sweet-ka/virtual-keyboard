@@ -1,154 +1,172 @@
 import { arr } from "./keyboard.js";
 
 class Keyboard {
-
-  canvas_width = 1200
-  canvas_height = 500
-  delta_x_max = 5;
-  delta_y_max = 5;
+  canvas_width = 1420;
+  canvas_height = 500;
+  canvas_x;
+  canvas_y;
+  ctx;
+  delta_x_max = 10;
+  delta_y_max = 10;
   inner = 0.1;
   r = 8;
-  strokeStyle_button = "black"
-  fillStyle_button = "gray"
-  shadowColor_button = "black"
-  
+  strokeStyle_button = "black";
+  fillStyle_button = "gray";
+  fillStyle_text = "white";
+  shadowColor_button = "black";
+  animate_name;
 
-  constructor(){
-    this.element = document.createElement("canvas")
-    
+  constructor() {
+    this.element = document.createElement("canvas");
+
     this.element.setAttribute("width", this.canvas_width);
     this.element.setAttribute("height", this.canvas_height);
     this.element.setAttribute("id", "can");
-    const ctx = this.element.getContext("2d");
-    this.arr = arr
+    this.ctx = this.element.getContext("2d");
+    this.arr = arr;
+    this.animate_name = this.animate.bind(this);
 
-function set_delta_x(w, x){
-  return ((this.canvas_width-w)/2-x)/this.canvas_width*this.delta_x_max
-}
+    this.txt = document.getElementById("txt");
 
-function set_delta_y(h, y){
-  return (this.canvas_height-h-y)/this.canvas_height*this.delta_y_max
-}
+    this.arr.forEach((item, index) => {
+      item.x_shadow = this.set_delta_x(item.width, item.x);
+      item.y_shadow = this.set_delta_y(item.height, item.y);
+      this.art(item, item.x_delta, item.y_delta);
 
-function art(el, x, y) {
-
-  ctx.strokeStyle = this.strokeStyle_button;
-  ctx.shadowColor = this.shadowColor_button;
-
-  ctx.save();
-
-  ctx.fillStyle = this.fillStyle_button;
-  ctx.beginPath();
-  ctx.shadowOffsetX = el.x_shadow - x;
-  ctx.shadowOffsetY = el.y_shadow - y;
-  ctx.roundRect(el.x + x, el.y + y, el.width, el.height, [this.r]);
-  ctx.fill();
-
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 0;
-  ctx.roundRect(
-    el.x + x + el.width * this.inner,
-    el.y + y + el.height * this.inner,
-    el.width * (1 - this.inner * 2),
-    el.height * (1 - this.inner * 2),
-    [this.r]
-  );
-  ctx.stroke();
-
-  ctx.restore();
-}
-
-this.arr.forEach((item, index) => {
-  item.x_shadow = set_delta_x.call(this, item.width, item.x)
-  item.y_shadow = set_delta_y.call(this, item.height, item.y)
-  art.call(this, item, item.x_delta, item.y_delta);
-
-  addEventListener('keydown',(event) => {
-    if (event.code == item.code) {
-      item.x_delta = item.x_shadow;
-      item.y_delta = item.y_shadow;
-      animate(index, 1);
-    }
-  });
-  addEventListener('keyup',(event) => {
-    if (event.code == item.code) {
-      item.x_delta = item.x_shadow;
-      item.y_delta = item.y_shadow;
-      animate(index, -1);
-    }
-  });
-});
-
-const animate = function (i, delta) {
-  let start = performance.now();
-
-  requestAnimationFrame(function animate(time) {
-    let timeFraction = (time - start) / 2;
-    if (timeFraction > 1) timeFraction = 1;
-    if (timeFraction < 0) timeFraction = 0;
-
-    let progress_x, progress_y;
-
-    if (delta === 1) {
-      progress_x = arr[i].x_shadow * timeFraction;
-      progress_y = arr[i].y_shadow * timeFraction;
-    } else if (delta === -1) {
-      progress_x = arr[i].x_shadow * (1 - timeFraction);
-      progress_y = arr[i].y_shadow * (1 - timeFraction);
-    }
-
-    arr[i].x_delta = progress_x;
-    arr[i].y_delta = progress_y;
-
-    ctx.clearRect(0, 0, 1200, 500);
-
-    arr.forEach((item) => {
-      art.call(this, item, item.x_delta, item.y_delta);
+      addEventListener("keydown", (event) => {
+        if (event.code == item.code) {
+          item.x_delta = item.x_shadow;
+          item.y_delta = item.y_shadow;
+          this.animate_name(index, 1);
+          this.txt.value += item.letter;
+        }
+      });
+      addEventListener("keyup", (event) => {
+        if (event.code == item.code) {
+          item.x_delta = item.x_shadow;
+          item.y_delta = item.y_shadow;
+          this.animate_name(index, -1);
+        }
+      });
     });
 
-    if (timeFraction < 1) {
-      requestAnimationFrame(animate);
-    } else {
-      cancelAnimationFrame(animate);
-      if (delta === -1) removeEventListener("mouseup", animate_back);
+    addEventListener("mousedown", (e) => {
+      this.down(e);
+    });
+  }
+
+  down(e) {
+    let coord = this.get_coord(e);
+    this.arr.forEach((item, index) => {
+      if (
+        coord.ex >= item.x &&
+        coord.ex <= item.x + item.width &&
+        coord.ey >= item.y &&
+        coord.ey <= item.y + item.height
+      ) {
+        item.x_delta = item.x_shadow;
+        item.y_delta = item.y_shadow;
+        this.txt.value += item.letter;
+
+        this.animate_name(index, 1);
+
+        const animate_back = function () {
+          this.animate_name(index, -1);
+        };
+        this.animate_back_this = animate_back.bind(this);
+
+        addEventListener("mouseup", this.animate_back_this);
+      }
+    });
+  }
+
+  animate(i, delta) {
+    let start = performance.now();
+    let anim_this = anim.bind(this);
+
+    function anim(time) {
+      let timeFraction = (time - start) / 2;
+      if (timeFraction > 1) timeFraction = 1;
+      if (timeFraction < 0) timeFraction = 0;
+
+      let progress_x, progress_y;
+
+      if (delta === 1) {
+        progress_x = arr[i].x_shadow * timeFraction;
+        progress_y = arr[i].y_shadow * timeFraction;
+      } else if (delta === -1) {
+        progress_x = arr[i].x_shadow * (1 - timeFraction);
+        progress_y = arr[i].y_shadow * (1 - timeFraction);
+      }
+
+      arr[i].x_delta = progress_x;
+      arr[i].y_delta = progress_y;
+
+      this.ctx.clearRect(0, 0, this.canvas_width, this.canvas_height);
+
+      arr.forEach((item) => {
+        this.art(item, item.x_delta, item.y_delta);
+      });
+
+      if (timeFraction < 1) {
+        requestAnimationFrame(anim_this);
+      } else {
+        cancelAnimationFrame(anim_this);
+        if (delta === -1) removeEventListener("mouseup", this.animate_back_this);
+      }
     }
-  });
-};
 
-const canvas_x = this.element.getBoundingClientRect().x;
-const canvas_y = this.element.getBoundingClientRect().y;
-let index;
-let animate_back;
+    requestAnimationFrame(anim_this);
+  }
 
-addEventListener("mousedown", (e) => {
-  let coord = get_coord(e);
-  this.arr.forEach((item, i) => {
-    if (
-      coord.ex >= item.x &&
-      coord.ex <= item.x + item.width &&
-      coord.ey >= item.y &&
-      coord.ey <= item.y + item.height
-    ) {
-      item.x_delta = item.x_shadow;
-      item.y_delta = item.y_shadow;
-      index = i;
-      animate.call(this, index, 1);
+  set_delta_x(w, x) {
+    return (((this.canvas_width - w) / 2 - x) / this.canvas_width) * this.delta_x_max;
+  }
 
-      animate_back = function () {
-        animate.call(this, index, -1);
-      };
+  set_delta_y(h, y) {
+    return ((this.canvas_height - h - y / 2) / this.canvas_height) * this.delta_y_max;
+  }
 
-      addEventListener("mouseup", animate_back);
-    }
-  });
-});
+  art(el, x, y) {
+    this.ctx.strokeStyle = this.strokeStyle_button;
+    this.ctx.shadowColor = this.shadowColor_button;
 
-function get_coord(e) {
-  return { ex: e.clientX - canvas_x, ey: e.clientY - canvas_y };
+    this.ctx.save();
+
+    this.ctx.fillStyle = this.fillStyle_button;
+    //this.ctx.shadowBlur = "5";
+    this.ctx.beginPath();
+    this.ctx.shadowOffsetX = el.x_shadow - x;
+    this.ctx.shadowOffsetY = el.y_shadow - y;
+    this.ctx.roundRect(el.x + x, el.y + y, el.width, el.height, [this.r]);
+    this.ctx.fill();
+
+    this.ctx.shadowOffsetX = 0;
+    this.ctx.shadowOffsetY = 0; //83240-60351
+    this.ctx.shadowBlur = "0";
+    this.ctx.roundRect(
+      el.x + x + el.width * this.inner,
+      el.y + y + el.height * this.inner,
+      el.width * (1 - this.inner * 2),
+      el.height * (1 - this.inner * 2),
+      [this.r]
+    );
+    this.ctx.stroke();
+
+    this.ctx.fillStyle = this.fillStyle_text;
+    this.ctx.font = "30px sans-sherif";
+    this.ctx.textAlign = "center";
+    this.ctx.fillText(el.letter, el.x + el.width / 2 + x, el.y + el.height / 2 + y + 10);
+
+    this.ctx.restore();
+  }
+
+  get_coord(e) {
+    this.canvas_x = this.element.getBoundingClientRect().x;
+    this.canvas_y = this.element.getBoundingClientRect().y;
+    return { ex: e.clientX - this.canvas_x, ey: e.clientY - this.canvas_y };
+  }
 }
 
-}
-}
-
-const can = new Keyboard()
-document.body.append(can.element)
+const can = new Keyboard();
+document.body.prepend(can.element);
