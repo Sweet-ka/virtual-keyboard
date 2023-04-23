@@ -1,4 +1,4 @@
-import { backspace, enter, del, caps, tab } from "./keyboard-functions.js";
+import { backspace, enter, del, tab } from "./keyboard-functions.js";
 
 export const width_base = 80;
 export const height_base = 80;
@@ -393,7 +393,7 @@ export const arr = [
     code: "CapsLock",
     letter: "caps lock",
     active: false,
-    function: caps,
+    function: undefined,
   },
   {
     width: width_base,
@@ -578,6 +578,7 @@ export const arr = [
     y_delta: 0,
     code: "ShiftLeft",
     letter: "shift",
+    function: undefined,
   },
   {
     width: width_base,
@@ -733,6 +734,7 @@ export const arr = [
     y_delta: 0,
     code: "ShiftRight",
     letter: "shift",
+    function: undefined,
   },
   //////////////  5 ряд /////////////////////////
   {
@@ -747,6 +749,7 @@ export const arr = [
     y_delta: 0,
     code: "ControlLeft",
     letter: "ctrl",
+    function: undefined,
   },
   {
     width: width_base,
@@ -760,6 +763,7 @@ export const arr = [
     y_delta: 0,
     code: "AltLeft",
     letter: "alt",
+    function: undefined,
   },
   {
     width: width_base * 1.5,
@@ -773,6 +777,7 @@ export const arr = [
     y_delta: 0,
     code: "MetaLeft",
     letter: "win",
+    function: undefined,
   },
   {
     width: width_base * 5.95,
@@ -798,7 +803,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "MetaRight",
-    letter: "win",
+    letter: "ctrl",
+    function: undefined,
   },
   {
     width: width_base,
@@ -812,6 +818,7 @@ export const arr = [
     y_delta: 0,
     code: "AltRight",
     letter: "alt",
+    function: undefined,
   },
   {
     width: width_base,

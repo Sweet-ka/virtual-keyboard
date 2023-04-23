@@ -72,7 +72,7 @@ class Keyboard {
 
   checkProperty(item) {
     if (item.hasOwnProperty("function")) {
-      item.function.call(this, this.txt, item.letter);
+      if (item.function !== undefined) item.function.call(this, this.txt, item.letter);
     } else {
       letter.call(this, this.caps, this.txt, item.letter);
     }

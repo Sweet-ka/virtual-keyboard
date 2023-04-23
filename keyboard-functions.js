@@ -31,8 +31,6 @@ export function enter(textarea) {
   textarea.value += "\n";
 }
 
-export function caps() {}
-
 export function tab(textarea) {
   var start = textarea.selectionStart;
   var end = textarea.selectionEnd;
