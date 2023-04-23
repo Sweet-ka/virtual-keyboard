@@ -88,6 +88,7 @@ class Keyboard {
   }
 
   down(e) {
+    e.preventDefault();
     let coord = this.get_coord(e);
 
     this.arr.forEach((item, index) => {
