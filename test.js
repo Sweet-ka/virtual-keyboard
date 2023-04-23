@@ -1,4 +1,5 @@
-import { arr, gap } from "./keyboard.js";
+import { caps, capsActive, letter } from "./keyboard-functions.js";
+import { arr, gap, style_active_button } from "./keyboard.js";
 
 class Keyboard {
   canvas_width = 1420;
@@ -41,15 +42,22 @@ class Keyboard {
       this.art(item, item.x_delta, item.y_delta);
 
       addEventListener("keydown", (event) => {
+        event.preventDefault();
         if (event.code == item.code) {
           item.x_delta = item.x_shadow;
           item.y_delta = item.y_shadow;
+          // item.active = true;
+          this.checkCaps(item, true, event);
           this.animate_name(index, 1);
-          this.txt.value += item.letter;
+          this.checkProperty(item);
+          console.log(event);
         }
       });
       addEventListener("keyup", (event) => {
+        event.preventDefault();
         if (event.code == item.code) {
+          this.checkCaps(item, false, event);
+
           item.x_delta = item.x_shadow;
           item.y_delta = item.y_shadow;
           this.animate_name(index, -1);
@@ -62,8 +70,27 @@ class Keyboard {
     });
   }
 
+  checkProperty(item) {
+    if (item.hasOwnProperty("function")) {
+      item.function.call(this, this.txt, item.letter);
+    } else {
+      letter.call(this, this.txt, item.letter);
+    }
+  }
+
+  checkCaps(item, active, e) {
+    if (item.code !== "CapsLock") {
+      item.active = active; // capsActive.call(this, this.txt);
+    } else if (e) {
+      item.active = e.getModifierState("CapsLock");
+    }
+  }
+
   down(e) {
+    console.log(e.getModifierState("CapsLock"));
+
     let coord = this.get_coord(e);
+
     this.arr.forEach((item, index) => {
       if (
         coord.ex >= item.x &&
@@ -73,16 +100,27 @@ class Keyboard {
       ) {
         item.x_delta = item.x_shadow;
         item.y_delta = item.y_shadow;
-        this.txt.value += item.letter;
 
-        this.animate_name(index, 1);
+        if (item.code === "CapsLock") {
+          if (item.active === true) {
+            item.active = false;
+          } else if (item.active === false) {
+            item.active = true;
+          }
+        }
+        this.checkCaps(item, true);
+
+        if (item.active === true) this.animate_name(index, 1);
+
+        this.checkProperty(item);
 
         const animate_back = function () {
+          this.checkCaps(item, false);
           this.animate_name(index, -1);
         };
         this.animate_back_this = animate_back.bind(this);
 
-        addEventListener("mouseup", this.animate_back_this);
+        if (item.code !== "CapsLock" || item.active === false) addEventListener("mouseup", this.animate_back_this);
       }
     });
   }
@@ -135,16 +173,18 @@ class Keyboard {
   }
 
   art(el, x, y) {
+    this.txt.focus();
+
     this.ctx.strokeStyle = this.strokeStyle_button;
     this.ctx.shadowColor = this.shadowColor_button;
 
     this.ctx.save();
-
-    this.ctx.fillStyle = this.fillStyle_button;
+    el.active ? (this.ctx.fillStyle = style_active_button) : (this.ctx.fillStyle = el.style);
     //this.ctx.shadowBlur = "5";
     this.ctx.beginPath();
     this.ctx.shadowOffsetX = el.x_shadow - x;
     this.ctx.shadowOffsetY = el.y_shadow - y;
+
     this.ctx.roundRect(el.x + x, el.y + y, el.width, el.height, [this.r]);
     this.ctx.fill();
 

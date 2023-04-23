@@ -1,13 +1,20 @@
+import { backspace, enter, del, caps, capsActive } from "./keyboard-functions.js";
+
 export const width_base = 80;
 export const height_base = 80;
 
 export const gap = 8;
+
+export const style_base_button = "gray";
+export const style_active_button = "gold";
+export const style_space_button = "darkgray";
 
 export const arr = [
   //////////////  1 ряд /////////////////////////
   {
     width: width_base,
     height: height_base,
+    style: style_space_button,
     x: gap,
     y: 10,
     x_shadow: 0,
@@ -20,6 +27,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 1 + gap,
     y: 10,
     x_shadow: 0,
@@ -32,6 +40,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 2 + gap,
     y: 10,
     x_shadow: 0,
@@ -44,6 +53,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 3 + gap,
     y: 10,
     x_shadow: 0,
@@ -56,6 +66,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 4 + gap,
     y: 10,
     x_shadow: 0,
@@ -68,6 +79,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 5 + gap,
     y: 10,
     x_shadow: 0,
@@ -80,6 +92,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 6 + gap,
     y: 10,
     x_shadow: 0,
@@ -92,6 +105,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 7 + gap,
     y: 10,
     x_shadow: 0,
@@ -104,6 +118,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 8 + gap,
     y: 10,
     x_shadow: 0,
@@ -116,6 +131,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 9 + gap,
     y: 10,
     x_shadow: 0,
@@ -128,6 +144,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 10 + gap,
     y: 10,
     x_shadow: 0,
@@ -140,6 +157,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 11 + gap,
     y: 10,
     x_shadow: 0,
@@ -152,6 +170,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: (width_base + gap) * 12 + gap,
     y: 10,
     x_shadow: 0,
@@ -164,6 +183,7 @@ export const arr = [
   {
     width: width_base * 2.5,
     height: height_base,
+    style: style_space_button,
     x: (width_base + gap) * 13 + gap,
     y: 10,
     x_shadow: 0,
@@ -171,12 +191,14 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Backspace",
-    letter: "Backspace",
+    letter: "backspace",
+    function: backspace,
   },
   //////////////  2 ряд /////////////////////////
   {
     width: width_base * 1.5 + gap / 2,
     height: height_base,
+    style: style_space_button,
     x: gap,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -189,6 +211,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -201,6 +224,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 1,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -213,6 +237,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 2,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -225,6 +250,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 3,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -237,6 +263,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 4,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -249,6 +276,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 5,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -261,6 +289,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 6,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -273,6 +302,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 7,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -285,6 +315,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 8,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -297,6 +328,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 9,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -309,6 +341,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 10,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -321,6 +354,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 11,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -333,6 +367,7 @@ export const arr = [
   {
     width: width_base * 1.95,
     height: height_base,
+    style: style_space_button,
     x: gap * 2.5 + width_base * 1.5 + (width_base + gap) * 12,
     y: gap + height_base + gap,
     x_shadow: 0,
@@ -341,11 +376,13 @@ export const arr = [
     y_delta: 0,
     code: "Delete",
     letter: "del",
+    function: del,
   },
   //////////////  3 ряд /////////////////////////
   {
     width: width_base * 1.8,
     height: height_base,
+    style: style_space_button,
     x: gap,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -354,10 +391,13 @@ export const arr = [
     y_delta: 0,
     code: "CapsLock",
     letter: "caps lock",
+    active: false,
+    function: caps,
   },
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 0,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -370,6 +410,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 1,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -382,6 +423,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 2,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -394,6 +436,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 3,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -406,6 +449,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 4,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -418,6 +462,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 5,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -430,6 +475,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 6,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -442,6 +488,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 7,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -454,6 +501,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 8,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -466,6 +514,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 9,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -478,6 +527,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 10,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -490,6 +540,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 11,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -502,6 +553,7 @@ export const arr = [
   {
     width: width_base * 1.7,
     height: height_base,
+    style: style_space_button,
     x: gap * 2 + width_base * 1.8 + (width_base + gap) * 12,
     y: gap + (height_base + gap) * 2,
     x_shadow: 0,
@@ -510,11 +562,13 @@ export const arr = [
     y_delta: 0,
     code: "Enter",
     letter: "enter",
+    function: enter,
   },
   //////////////  4 ряд /////////////////////////
   {
     width: width_base * 2.5,
     height: height_base,
+    style: style_space_button,
     x: gap,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -527,6 +581,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 0,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -539,6 +594,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 1,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -551,6 +607,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 2,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -563,6 +620,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 3,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -575,6 +633,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 4,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -587,6 +646,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 5,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -599,6 +659,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 6,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -611,6 +672,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 7,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -623,6 +685,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 8,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -635,6 +698,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_base_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 9,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -659,6 +723,7 @@ export const arr = [
   {
     width: width_base * 3.15,
     height: height_base,
+    style: style_space_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 10,
     y: gap + (height_base + gap) * 3,
     x_shadow: 0,
@@ -672,6 +737,7 @@ export const arr = [
   {
     width: width_base * 1.5,
     height: height_base,
+    style: style_space_button,
     x: gap,
     y: gap + (height_base + gap) * 4,
     x_shadow: 0,
@@ -684,6 +750,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_space_button,
     x: gap * 2 + width_base * 1.5 + (width_base + gap) * 0,
     y: gap + (height_base + gap) * 4,
     x_shadow: 0,
@@ -696,6 +763,7 @@ export const arr = [
   {
     width: width_base * 1.5,
     height: height_base,
+    style: style_space_button,
     x: gap * 2 + width_base * 1.5 + (width_base + gap) * 1,
     y: gap + (height_base + gap) * 4,
     x_shadow: 0,
@@ -708,6 +776,7 @@ export const arr = [
   {
     width: width_base * 5.95,
     height: height_base,
+    style: style_space_button,
     x: gap * 3 + width_base * 1.5 * 2 + (width_base + gap) * 1,
     y: gap + (height_base + gap) * 4,
     x_shadow: 0,
@@ -720,6 +789,7 @@ export const arr = [
   {
     width: width_base * 1.5,
     height: height_base,
+    style: style_space_button,
     x: gap * 4 + width_base * 1.5 * 2 + width_base * 5.95 + (width_base + gap) * 1,
     y: gap + (height_base + gap) * 4,
     x_shadow: 0,
@@ -732,6 +802,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base,
+    style: style_space_button,
     x: gap * 5 + width_base * 1.5 * 3 + width_base * 5.95 + (width_base + gap) * 1,
     y: gap + (height_base + gap) * 4,
     x_shadow: 0,
@@ -744,6 +815,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base / 2,
+    style: style_space_button,
     x: gap * (5 + 1.8) + width_base * 1.5 * 3 + width_base * 5.95 + (width_base + gap) * 2,
     y: gap + (height_base + gap) * 4 + height_base / 2,
     x_shadow: 0,
@@ -756,6 +828,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base / 2,
+    style: style_space_button,
     x: gap * (5 + 1.8 * 2) + width_base * 1.5 * 3 + width_base * 5.95 + (width_base + gap) * 3,
     y: gap + (height_base + gap) * 4,
     x_shadow: 0,
@@ -768,6 +841,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base / 2,
+    style: style_space_button,
     x: gap * (5 + 1.8 * 2) + width_base * 1.5 * 3 + width_base * 5.95 + (width_base + gap) * 3,
     y: gap + (height_base + gap) * 4 + height_base / 2,
     x_shadow: 0,
@@ -780,6 +854,7 @@ export const arr = [
   {
     width: width_base,
     height: height_base / 2,
+    style: style_space_button,
     x: 1352 - width_base,
     y: gap + (height_base + gap) * 4 + height_base / 2,
     x_shadow: 0,
