@@ -1,4 +1,4 @@
-import { backspace, enter, del, caps, capsActive } from "./keyboard-functions.js";
+import { backspace, enter, del, caps } from "./keyboard-functions.js";
 
 export const width_base = 80;
 export const height_base = 80;

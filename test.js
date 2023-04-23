@@ -1,4 +1,4 @@
-import { caps, capsActive, letter } from "./keyboard-functions.js";
+import { letter } from "./keyboard-functions.js";
 import { arr, gap, style_active_button } from "./keyboard.js";
 
 class Keyboard {
@@ -16,6 +16,7 @@ class Keyboard {
   fillStyle_text = "white";
   shadowColor_button = "black";
   animate_name;
+  caps;
 
   constructor() {
     this.element = document.createElement("canvas");
@@ -46,11 +47,10 @@ class Keyboard {
         if (event.code == item.code) {
           item.x_delta = item.x_shadow;
           item.y_delta = item.y_shadow;
-          // item.active = true;
+
           this.checkCaps(item, true, event);
           this.animate_name(index, 1);
           this.checkProperty(item);
-          console.log(event);
         }
       });
       addEventListener("keyup", (event) => {
@@ -74,21 +74,20 @@ class Keyboard {
     if (item.hasOwnProperty("function")) {
       item.function.call(this, this.txt, item.letter);
     } else {
-      letter.call(this, this.txt, item.letter);
+      letter.call(this, this.caps, this.txt, item.letter);
     }
   }
 
   checkCaps(item, active, e) {
     if (item.code !== "CapsLock") {
-      item.active = active; // capsActive.call(this, this.txt);
+      item.active = active;
     } else if (e) {
       item.active = e.getModifierState("CapsLock");
+      this.caps = item.active;
     }
   }
 
   down(e) {
-    console.log(e.getModifierState("CapsLock"));
-
     let coord = this.get_coord(e);
 
     this.arr.forEach((item, index) => {
@@ -107,6 +106,7 @@ class Keyboard {
           } else if (item.active === false) {
             item.active = true;
           }
+          this.caps = item.active;
         }
         this.checkCaps(item, true);
 
