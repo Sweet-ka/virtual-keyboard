@@ -32,3 +32,12 @@ export function enter(textarea) {
 }
 
 export function caps() {}
+
+export function tab(textarea) {
+  var start = textarea.selectionStart;
+  var end = textarea.selectionEnd;
+  const nSpaces = 3;
+  textarea.value =
+    textarea.value.substring(0, start) + " ".repeat(nSpaces) + textarea.value.substring(end, textarea.value.length);
+  textarea.selectionStart = textarea.selectionEnd = start + nSpaces;
+}

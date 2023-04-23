@@ -1,4 +1,4 @@
-import { backspace, enter, del, caps } from "./keyboard-functions.js";
+import { backspace, enter, del, caps, tab } from "./keyboard-functions.js";
 
 export const width_base = 80;
 export const height_base = 80;
@@ -207,6 +207,7 @@ export const arr = [
     y_delta: 0,
     code: "Tab",
     letter: "tab",
+    function: tab,
   },
   {
     width: width_base,
