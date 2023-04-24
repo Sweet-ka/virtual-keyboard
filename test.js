@@ -42,7 +42,7 @@ class Keyboard {
       item.y_shadow = this.set_delta_y(item.height, item.y);
       this.art(item, item.x_delta, item.y_delta);
 
-      this.element.addEventListener("keydown", (event) => {
+      addEventListener("keydown", (event) => {
         this.defaultMouse(event);
         if (event.code == item.code) {
           item.x_delta = item.x_shadow;
@@ -53,8 +53,7 @@ class Keyboard {
           this.checkProperty(item);
         }
       });
-      this.element.addEventListener("keyup", (event) => {
-        event.preventDefault();
+      addEventListener("keyup", (event) => {
         if (event.code == item.code) {
           this.checkCaps(item, false, event);
 
@@ -65,15 +64,18 @@ class Keyboard {
       });
     });
 
-    this.element.addEventListener("mousedown", (e) => {
+    addEventListener("mousedown", (e) => {
       this.down(e);
     });
-    this.element.addEventListener("mousemove", this.defaultMouse);
+
+    this.txt.addEventListener("mousemove", () => {
+      removeEventListener("mousemove", this.defaultMouse);
+    });
   }
 
   checkProperty(item) {
-    if (item.hasOwnProperty("function")) {
-      if (item.function !== undefined) item.function.call(this, this.txt, item.letter);
+    if (item.hasOwnProperty("function") && item.function !== undefined) {
+      item.function.call(this, this.txt, item.letter);
     } else {
       letter.call(this, this.caps, this.txt, item.letter);
     }
@@ -90,9 +92,12 @@ class Keyboard {
 
   defaultMouse(e) {
     e.preventDefault();
+    console.log("default");
   }
 
   down(e) {
+    addEventListener("mousemove", this.defaultMouse);
+
     let coord = this.get_coord(e);
 
     this.arr.forEach((item, index) => {
@@ -126,7 +131,7 @@ class Keyboard {
         this.animate_back_this = animate_back.bind(this);
 
         if (item.code !== "CapsLock" || item.active === false) {
-          this.element.addEventListener("mouseup", this.animate_back_this);
+          addEventListener("mouseup", this.animate_back_this);
         }
       }
     });
@@ -164,9 +169,7 @@ class Keyboard {
         requestAnimationFrame(anim_this);
       } else {
         cancelAnimationFrame(anim_this);
-        if (delta === -1) {
-          this.element.removeEventListener("mouseup", this.animate_back_this);
-        }
+        if (delta === -1) removeEventListener("mouseup", this.animate_back_this);
       }
     }
 
