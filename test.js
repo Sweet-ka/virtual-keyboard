@@ -29,6 +29,7 @@ class Keyboard {
     this.animate_name = this.animate.bind(this);
 
     this.txt = document.getElementById("txt");
+    this.firstPos = undefined;
 
     this.element.offscreenCanvas = document.createElement("canvas");
     this.element.offscreenCanvas.width = this.canvas_width;
@@ -43,6 +44,7 @@ class Keyboard {
       this.art(item, item.x_delta, item.y_delta);
 
       addEventListener("keydown", (event) => {
+        if (event.code !== "ArrowUp") this.firstPos = undefined;
         this.defaultMouse(event);
         if (event.code == item.code) {
           item.x_delta = item.x_shadow;
@@ -95,6 +97,7 @@ class Keyboard {
   }
 
   down(e) {
+    if (e.code !== "ArrowUp") this.firstPos = undefined;
     addEventListener("mousemove", this.defaultMouse);
 
     let coord = this.get_coord(e);

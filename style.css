@@ -1,3 +1,15 @@
 #can {
-    border: solid 1px orange;
+  border: solid 1px orange;
+}
+
+span {
+  word-wrap: break-word;
+}
+
+#out, #txt{
+  box-sizing: border-box;
+  font-family: 'Courier New', Courier, monospace;
+    width: 300px;
+font-size: 16px;
+line-height: 16px;
 }

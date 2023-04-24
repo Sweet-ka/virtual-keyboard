@@ -393,7 +393,7 @@ export const arr = [
     code: "CapsLock",
     letter: "caps lock",
     active: false,
-    function: undefined,
+    function: null,
   },
   {
     width: width_base,
@@ -845,7 +845,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "ArrowUp",
-    letter: "up",
+    letter: "",
     function: goUp,
   },
   {
@@ -859,7 +859,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "ArrowDown",
-    letter: "down",
+    letter: "",
     //function: goDown,
   },
   {
