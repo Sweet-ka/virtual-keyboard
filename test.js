@@ -92,7 +92,6 @@ class Keyboard {
 
   defaultMouse(e) {
     e.preventDefault();
-    console.log("default");
   }
 
   down(e) {

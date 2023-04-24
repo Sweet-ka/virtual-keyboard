@@ -42,12 +42,22 @@ export function tab(textarea) {
 
 export function goLeft(textarea) {
   let start = textarea.selectionStart;
-  if (start > 0) textarea.selectionStart = textarea.selectionEnd = start - 1;
+  let end = textarea.selectionEnd;
+  if (start === end) {
+    if (start > 0) textarea.selectionStart = textarea.selectionEnd = start - 1;
+  } else {
+    if (start > 0) textarea.selectionStart = textarea.selectionEnd = start;
+  }
 }
 
 export function goRight(textarea) {
+  let start = textarea.selectionStart;
   let end = textarea.selectionEnd;
-  if (end < textarea.value.length) textarea.selectionStart = textarea.selectionEnd = end + 1;
+  if (start === end) {
+    if (end < textarea.value.length) textarea.selectionStart = textarea.selectionEnd = end + 1;
+  } else {
+    if (end < textarea.value.length) textarea.selectionStart = textarea.selectionEnd = end;
+  }
 }
 
 export function goUp(textarea) {
