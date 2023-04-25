@@ -1,4 +1,5 @@
 import { Base } from "./base.js";
+import { CloneTxt } from "./clone-txt.js";
 import { letter } from "./keyboard-functions.js";
 import { arr, gap, style_active_button } from "./keyboard.js";
 import { TextField } from "./text-field.js";
@@ -28,6 +29,11 @@ export class Keyboard extends Base {
     this.txtField.render(this.element);
     this.txt = this.txtField.element;
 
+    this.clone = new CloneTxt();
+    this.clone.element.id = "out";
+    this.clone.span.id = "sp";
+    this.clone.render(this.element);
+
     this.canvas = new Base("canvas");
     this.canvas.render(this.element);
 
@@ -53,7 +59,7 @@ export class Keyboard extends Base {
       this.art(item, item.x_delta, item.y_delta);
 
       addEventListener("keydown", (event) => {
-        if (event.code !== "ArrowUp") this.firstPos = undefined;
+        if (event.code !== "ArrowUp" && event.code !== "ArrowDown") this.firstPos = undefined;
         this.defaultMouse(event);
         if (event.code == item.code) {
           item.x_delta = item.x_shadow;
@@ -86,7 +92,7 @@ export class Keyboard extends Base {
 
   checkProperty(item) {
     if (item.hasOwnProperty("function") && item.function !== undefined) {
-      item.function.call(this, this.txt, item.letter);
+      item.function.call(this, this.txt, item.letter, item.code);
     } else {
       letter.call(this, this.caps, this.txt, item.letter);
     }
@@ -106,7 +112,7 @@ export class Keyboard extends Base {
   }
 
   down(e) {
-    if (e.code !== "ArrowUp") this.firstPos = undefined;
+    if (e.code !== "ArrowUp" && e.code !== "ArrowDown") this.firstPos = undefined;
     addEventListener("mousemove", this.defaultMouse);
 
     let coord = this.get_coord(e);

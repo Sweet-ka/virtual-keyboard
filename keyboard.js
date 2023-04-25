@@ -1,4 +1,4 @@
-import { backspace, enter, del, tab, goLeft, goRight, goUp } from "./keyboard-functions.js";
+import { backspace, enter, del, tab, goLeft, goRight, goUpDown } from "./keyboard-functions.js";
 
 export const width_base = 80;
 export const height_base = 80;
@@ -846,7 +846,7 @@ export const arr = [
     y_delta: 0,
     code: "ArrowUp",
     letter: "",
-    function: goUp,
+    function: goUpDown,
   },
   {
     width: width_base,
@@ -860,7 +860,7 @@ export const arr = [
     y_delta: 0,
     code: "ArrowDown",
     letter: "",
-    //function: goDown,
+    function: goUpDown,
   },
   {
     width: width_base,

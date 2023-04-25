@@ -63,18 +63,21 @@ export function goRight(textarea) {
   }
 }
 
-export function goUp(textarea) {
-  let span = document.getElementById("sp");
+function createClone(textarea) {
+  let span = this.clone.span.element;
   span.textContent = textarea.value;
 
   let arrChar = span.textContent.split("");
   span.textContent = "";
-  arrChar.forEach((item) => {
+  arrChar.forEach((item, index) => {
     let htmlElem;
     if (item == "\n") {
       htmlElem = "<span><br></span>";
     } else {
       htmlElem = `<span>${item}</span>`;
+    }
+    if (index === arrChar.length - 1) {
+      htmlElem = `<span>${item}</span><span></span>`;
     }
     span.innerHTML += htmlElem;
   });
@@ -97,28 +100,44 @@ export function goUp(textarea) {
       rows.push(arrItem);
     }
   });
+  return rows;
+}
+
+function setNewRow(direction, curentRow, rows) {
+  let newRow;
+  if (direction === "ArrowUp") {
+    newRow = curentRow - 1;
+    if (newRow < 0) {
+      newRow = 0;
+    }
+  } else if (direction === "ArrowDown") {
+    newRow = curentRow + 1;
+    if (newRow > rows.length - 1) {
+      newRow = rows.length - 1;
+    }
+  }
+  return newRow;
+}
+
+export function goUpDown(textarea, letter, direction) {
+  let rows = createClone.call(this, textarea);
 
   let start = textarea.selectionStart;
   let curentRow, newRow, newPos;
 
   rows.forEach((item, index) => {
-    if (item.includes(start - 1)) {
+    if (item.includes(start)) {
       curentRow = index;
-      if (this.firstPos === undefined) this.firstPos = item.indexOf(start - 1) + 1;
+      if (this.firstPos === undefined) this.firstPos = item.indexOf(start);
     }
   });
 
-  newRow = curentRow - 1;
-  if (newRow < 0) {
-    newRow = 0;
-  }
-  if (rows[newRow].length <= this.firstPos) {
-    newPos = rows[newRow].length;
+  newRow = setNewRow(direction, curentRow, rows);
+
+  if (rows[newRow].length - 1 <= this.firstPos) {
+    newPos = rows[newRow].length - 1;
   } else {
     newPos = this.firstPos;
-  }
-  if (spans[rows[newRow][newPos - 1]].innerHTML === "<br>") {
-    newPos = newPos - 1;
   }
 
   textarea.selectionStart = textarea.selectionEnd = rows[newRow][newPos];
