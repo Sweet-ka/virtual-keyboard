@@ -1,7 +1,9 @@
+import { Base } from "./base.js";
 import { letter } from "./keyboard-functions.js";
 import { arr, gap, style_active_button } from "./keyboard.js";
+import { TextField } from "./text-field.js";
 
-class Keyboard {
+export class Keyboard extends Base {
   canvas_width = 1420;
   canvas_height = 500;
   canvas_x;
@@ -19,23 +21,30 @@ class Keyboard {
   caps;
 
   constructor() {
-    this.element = document.createElement("canvas");
+    super("div");
 
-    this.element.setAttribute("width", this.canvas_width);
-    this.element.setAttribute("height", this.canvas_height);
-    this.element.setAttribute("id", "can");
-    this.ctx = this.element.getContext("2d");
+    this.txtField = new TextField(30, 10);
+    this.txtField.element.id = "txt";
+    this.txtField.render(this.element);
+    this.txt = this.txtField.element;
+
+    this.canvas = new Base("canvas");
+    this.canvas.render(this.element);
+
+    this.canvas.element.setAttribute("width", this.canvas_width);
+    this.canvas.element.setAttribute("height", this.canvas_height);
+    this.canvas.element.setAttribute("id", "can");
+    this.ctx = this.canvas.element.getContext("2d");
     this.arr = arr;
     this.animate_name = this.animate.bind(this);
 
-    this.txt = document.getElementById("txt");
     this.firstPos = undefined;
 
-    this.element.offscreenCanvas = document.createElement("canvas");
-    this.element.offscreenCanvas.width = this.canvas_width;
-    this.element.offscreenCanvas.height = this.canvas_height;
+    this.canvas.element.offscreenCanvas = document.createElement("canvas");
+    this.canvas.element.offscreenCanvas.width = this.canvas_width;
+    this.canvas.element.offscreenCanvas.height = this.canvas_height;
 
-    this.ctx_back = this.element.getContext("2d");
+    this.ctx_back = this.canvas.element.getContext("2d");
     this.ctx_back_art();
 
     this.arr.forEach((item, index) => {
@@ -222,11 +231,8 @@ class Keyboard {
   }
 
   get_coord(e) {
-    this.canvas_x = this.element.getBoundingClientRect().x;
-    this.canvas_y = this.element.getBoundingClientRect().y;
+    this.canvas_x = this.canvas.element.getBoundingClientRect().x;
+    this.canvas_y = this.canvas.element.getBoundingClientRect().y;
     return { ex: e.clientX - this.canvas_x, ey: e.clientY - this.canvas_y };
   }
 }
-
-const can = new Keyboard();
-document.body.prepend(can.element);

@@ -6,10 +6,17 @@ span {
   word-wrap: break-word;
 }
 
-#out, #txt{
+#out,
+#txt {
+  display: block;
   box-sizing: border-box;
-  font-family: 'Courier New', Courier, monospace;
-    width: 300px;
-font-size: 16px;
-line-height: 16px;
+  font-family: "Courier New", Courier, monospace;
+  width: 300px;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+#out {
+  position: absolute;
+  opacity: 0;
 }
