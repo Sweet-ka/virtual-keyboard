@@ -11,14 +11,16 @@ export function backspace(textarea) {
   }
 }
 
-export function letter(caps, textarea, newLetter) {
+export function letter(caps, shift, textarea, newLetter) {
   let start = textarea.selectionStart;
   let end = textarea.selectionEnd;
   let letter;
-  caps ? (letter = newLetter.toUpperCase()) : (letter = newLetter.toLowerCase());
+  (caps || shift) && !(caps && shift) ? (letter = newLetter.toUpperCase()) : (letter = newLetter.toLowerCase());
   textarea.value = textarea.value.substring(0, start) + letter + textarea.value.substring(end, textarea.value.length);
   textarea.selectionStart = textarea.selectionEnd = start + 1;
 }
+
+export function empty() {}
 
 export function del(textarea) {
   let start = textarea.selectionStart;

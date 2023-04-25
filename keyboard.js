@@ -1,4 +1,4 @@
-import { backspace, enter, del, tab, goLeft, goRight, goUpDown } from "./keyboard-functions.js";
+import { backspace, enter, del, tab, goLeft, goRight, goUpDown, empty } from "./keyboard-functions.js";
 
 export const width_base = 80;
 export const height_base = 80;
@@ -393,7 +393,7 @@ export const arr = [
     code: "CapsLock",
     letter: "caps lock",
     active: false,
-    function: null,
+    function: empty,
   },
   {
     width: width_base,
@@ -578,7 +578,7 @@ export const arr = [
     y_delta: 0,
     code: "ShiftLeft",
     letter: "shift",
-    function: undefined,
+    function: empty,
   },
   {
     width: width_base,
@@ -734,7 +734,7 @@ export const arr = [
     y_delta: 0,
     code: "ShiftRight",
     letter: "shift",
-    function: undefined,
+    function: empty,
   },
   //////////////  5 ряд /////////////////////////
   {
@@ -777,7 +777,7 @@ export const arr = [
     y_delta: 0,
     code: "MetaLeft",
     letter: "win",
-    function: undefined,
+    function: empty,
   },
   {
     width: width_base * 5.95,
@@ -804,7 +804,7 @@ export const arr = [
     y_delta: 0,
     code: "MetaRight",
     letter: "ctrl",
-    function: undefined,
+    function: empty,
   },
   {
     width: width_base,

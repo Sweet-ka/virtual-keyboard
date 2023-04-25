@@ -20,6 +20,8 @@ export class Keyboard extends Base {
   shadowColor_button = "black";
   animate_name;
   caps;
+  shiftLeft = false;
+  shiftRight = false;
 
   constructor() {
     super("div");
@@ -61,6 +63,8 @@ export class Keyboard extends Base {
       addEventListener("keydown", (event) => {
         if (event.code !== "ArrowUp" && event.code !== "ArrowDown") this.firstPos = undefined;
         this.defaultMouse(event);
+        if (event.code === "ShiftLeft") this.shiftleft = true;
+        if (event.code === "ShiftRight") this.shiftRight = true;
         if (event.code == item.code) {
           item.x_delta = item.x_shadow;
           item.y_delta = item.y_shadow;
@@ -71,6 +75,8 @@ export class Keyboard extends Base {
         }
       });
       addEventListener("keyup", (event) => {
+        if (event.code === "ShiftLeft") this.shiftleft = false;
+        if (event.code === "ShiftRight") this.shiftRight = false;
         if (event.code == item.code) {
           this.checkCaps(item, false, event);
 
@@ -94,7 +100,8 @@ export class Keyboard extends Base {
     if (item.hasOwnProperty("function") && item.function !== undefined) {
       item.function.call(this, this.txt, item.letter, item.code);
     } else {
-      letter.call(this, this.caps, this.txt, item.letter);
+      this.shift = this.shiftLeft || this.shiftRight;
+      letter.call(this, this.caps, this.shift, this.txt, item.letter);
     }
   }
 
@@ -111,10 +118,16 @@ export class Keyboard extends Base {
     e.preventDefault();
   }
 
-  down(e) {
-    if (e.code !== "ArrowUp" && e.code !== "ArrowDown") this.firstPos = undefined;
-    addEventListener("mousemove", this.defaultMouse);
+  setActive(item) {
+    if (item.active === true) {
+      item.active = false;
+    } else if (item.active === false) {
+      item.active = true;
+    }
+  }
 
+  down(e) {
+    addEventListener("mousemove", this.defaultMouse);
     let coord = this.get_coord(e);
 
     this.arr.forEach((item, index) => {
@@ -127,27 +140,72 @@ export class Keyboard extends Base {
         item.x_delta = item.x_shadow;
         item.y_delta = item.y_shadow;
 
+        if (item.code !== "ArrowUp" && item.code !== "ArrowDown") this.firstPos = undefined;
+
         if (item.code === "CapsLock") {
-          if (item.active === true) {
-            item.active = false;
-          } else if (item.active === false) {
-            item.active = true;
-          }
+          this.setActive(item);
           this.caps = item.active;
         }
-        this.checkCaps(item, true);
 
-        if (item.active === true) this.animate_name(index, 1);
+        let callShiftLeftCtx = function () {
+          this.shiftLeft = true;
+          item.active = true;
+        };
+        let callShiftRightCtx = function () {
+          this.shiftRight = true;
+          item.active = true;
+        };
+        let callShiftLeft = callShiftLeftCtx.bind(this);
+        let callShiftRight = callShiftRightCtx.bind(this);
+
+        if (item.code === "ShiftLeft") {
+          item.active = true;
+          if (this.shiftLeft === false) this.animate_name(index, 1);
+          this.shiftLeft = false;
+          if (!e.shiftKey) {
+            addEventListener("mousemove", callShiftLeft);
+          }
+        } else if (item.code === "ShiftRight") {
+          item.active = true;
+          if (this.shiftRight === false) this.animate_name(index, 1);
+          this.shiftRight = false;
+          if (!e.shiftKey) {
+            addEventListener("mousemove", callShiftRight);
+          }
+        } else {
+          this.checkCaps(item, true);
+          if (item.active === true) this.animate_name(index, 1);
+        }
 
         this.checkProperty(item);
 
         const animate_back = function () {
-          this.checkCaps(item, false);
-          this.animate_name(index, -1);
+          removeEventListener("mousemove", callShiftLeft);
+          removeEventListener("mousemove", callShiftRight);
+          removeEventListener("mouseup", this.animate_back_this);
+          if (item.code === "ShiftLeft") {
+            item.active = this.shiftLeft;
+          } else if (item.code === "ShiftRight") {
+            item.active = this.shiftRight;
+          } else {
+            this.checkCaps(item, false);
+          }
+          if (item.active === false) {
+            this.animate_name(index, -1);
+          }
         };
+
         this.animate_back_this = animate_back.bind(this);
 
-        if (item.code !== "CapsLock" || item.active === false) {
+        if (
+          (item.code !== "CapsLock" && item.code !== "ShiftLeft" && item.code !== "ShiftRight") ||
+          item.active === false
+        ) {
+          addEventListener("mouseup", this.animate_back_this);
+        } else if (
+          (item.code === "ShiftLeft" && this.shiftLeft === false) ||
+          (item.code === "ShiftRight" && this.shiftRight === false)
+        ) {
           addEventListener("mouseup", this.animate_back_this);
         }
       }
@@ -186,7 +244,6 @@ export class Keyboard extends Base {
         requestAnimationFrame(anim_this);
       } else {
         cancelAnimationFrame(anim_this);
-        if (delta === -1) removeEventListener("mouseup", this.animate_back_this);
       }
     }
 
