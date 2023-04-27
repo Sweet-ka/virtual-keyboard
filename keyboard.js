@@ -22,7 +22,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "IntlBackslash",
-    letter: "`",
+    letter: { rus: "ё", en: "`" },
+    letterUp: { rus: "Ё", en: "~" },
   },
   {
     width: width_base,
@@ -35,7 +36,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Digit1",
-    letter: "1",
+    letter: { rus: "1", en: "1" },
+    letterUp: { rus: "!", en: "!" },
   },
   {
     width: width_base,
@@ -48,7 +50,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Digit2",
-    letter: "2",
+    letter: { rus: "2", en: "2" },
+    letterUp: { rus: '"', en: "@" },
   },
   {
     width: width_base,
@@ -61,7 +64,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Digit3",
-    letter: "3",
+    letter: { rus: "3", en: "3" },
+    letterUp: { rus: "№", en: "#" },
   },
   {
     width: width_base,
@@ -74,7 +78,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Digit4",
-    letter: "4",
+    letter: { rus: "4", en: "4" },
+    letterUp: { rus: ";", en: "$" },
   },
   {
     width: width_base,
@@ -87,7 +92,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Digit5",
-    letter: "5",
+    letter: { rus: "5", en: "5" },
+    letterUp: { rus: "%", en: "%" },
   },
   {
     width: width_base,
@@ -100,7 +106,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Digit6",
-    letter: "6",
+    letter: { rus: "6", en: "6" },
+    letterUp: { rus: ";", en: "^" },
   },
   {
     width: width_base,
@@ -113,7 +120,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Digit7",
-    letter: "7",
+    letter: { rus: "7", en: "7" },
+    letterUp: { rus: "?", en: "&" },
   },
   {
     width: width_base,
@@ -126,7 +134,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Digit8",
-    letter: "8",
+    letter: { rus: "8", en: "8" },
+    letterUp: { rus: "*", en: "*" },
   },
   {
     width: width_base,
@@ -139,7 +148,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Digit9",
-    letter: "9",
+    letter: { rus: "9", en: "9" },
+    letterUp: { rus: "(", en: "(" },
   },
   {
     width: width_base,
@@ -152,7 +162,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Digit0",
-    letter: "0",
+    letter: { rus: "0", en: "0" },
+    letterUp: { rus: ")", en: ")" },
   },
   {
     width: width_base,
@@ -165,7 +176,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Minus",
-    letter: "-",
+    letter: { rus: "-", en: "-" },
+    letterUp: { rus: "_", en: "_" },
   },
   {
     width: width_base,
@@ -178,7 +190,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Equal",
-    letter: "=",
+    letter: { rus: "=", en: "=" },
+    letterUp: { rus: "+", en: "+" },
   },
   {
     width: width_base * 2.5,
@@ -191,7 +204,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Backspace",
-    letter: "backspace",
+    letter: { rus: "Backspace", en: "Backspace" },
+    letterUp: { rus: "Backspace", en: "Backspace" },
     function: backspace,
   },
   //////////////  2 ряд /////////////////////////
@@ -206,7 +220,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Tab",
-    letter: "tab",
+    letter: { rus: "Tab", en: "Tab" },
+    letterUp: { rus: "Tab", en: "Tab" },
     function: tab,
   },
   {
@@ -220,7 +235,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyQ",
-    letter: "q",
+    letter: { rus: "й", en: "q" },
   },
   {
     width: width_base,
@@ -233,7 +248,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyW",
-    letter: "w",
+    letter: { rus: "ц", en: "w" },
   },
   {
     width: width_base,
@@ -246,7 +261,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyE",
-    letter: "e",
+    letter: { rus: "у", en: "e" },
   },
   {
     width: width_base,
@@ -259,7 +274,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyR",
-    letter: "r",
+    letter: { rus: "к", en: "r" },
   },
   {
     width: width_base,
@@ -272,7 +287,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyT",
-    letter: "t",
+    letter: { rus: "е", en: "t" },
   },
   {
     width: width_base,
@@ -285,7 +300,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyY",
-    letter: "y",
+    letter: { rus: "н", en: "y" },
   },
   {
     width: width_base,
@@ -298,7 +313,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyU",
-    letter: "u",
+    letter: { rus: "г", en: "u" },
   },
   {
     width: width_base,
@@ -311,7 +326,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyI",
-    letter: "i",
+    letter: { rus: "ш", en: "i" },
   },
   {
     width: width_base,
@@ -324,7 +339,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyO",
-    letter: "o",
+    letter: { rus: "щ", en: "o" },
   },
   {
     width: width_base,
@@ -337,7 +352,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyP",
-    letter: "p",
+    letter: { rus: "з", en: "p" },
   },
   {
     width: width_base,
@@ -350,7 +365,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "BracketLeft",
-    letter: "[",
+    letter: { rus: "х", en: "[" },
+    letterUp: { rus: "Х", en: "{" },
   },
   {
     width: width_base,
@@ -363,7 +379,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "BracketRight",
-    letter: "]",
+    letter: { rus: "ъ", en: "]" },
+    letterUp: { rus: "Ъ", en: "}" },
   },
   {
     width: width_base * 1.95,
@@ -376,7 +393,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Delete",
-    letter: "del",
+    letter: { rus: "Del", en: "Del" },
+    letterUp: { rus: "Del", en: "Del" },
     function: del,
   },
   //////////////  3 ряд /////////////////////////
@@ -391,7 +409,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "CapsLock",
-    letter: "caps lock",
+    letter: { rus: "Caps Lock", en: "Caps Lock" },
+    letterUp: { rus: "Caps Lock", en: "Caps Lock" },
     active: false,
     function: empty,
   },
@@ -406,7 +425,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyA",
-    letter: "a",
+    letter: { rus: "ф", en: "a" },
   },
   {
     width: width_base,
@@ -419,7 +438,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyS",
-    letter: "s",
+    letter: { rus: "ы", en: "s" },
   },
   {
     width: width_base,
@@ -432,7 +451,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyD",
-    letter: "d",
+    letter: { rus: "в", en: "d" },
   },
   {
     width: width_base,
@@ -445,7 +464,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyF",
-    letter: "f",
+    letter: { rus: "а", en: "f" },
   },
   {
     width: width_base,
@@ -458,7 +477,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyG",
-    letter: "g",
+    letter: { rus: "п", en: "g" },
   },
   {
     width: width_base,
@@ -471,7 +490,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyH",
-    letter: "h",
+    letter: { rus: "р", en: "h" },
   },
   {
     width: width_base,
@@ -484,7 +503,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyJ",
-    letter: "j",
+    letter: { rus: "о", en: "j" },
   },
   {
     width: width_base,
@@ -497,7 +516,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyK",
-    letter: "k",
+    letter: { rus: "л", en: "k" },
   },
   {
     width: width_base,
@@ -510,7 +529,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyL",
-    letter: "l",
+    letter: { rus: "д", en: "l" },
   },
   {
     width: width_base,
@@ -523,7 +542,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Semicolon",
-    letter: ";",
+    letter: { rus: "ж", en: ";" },
+    letterUp: { rus: "Ж", en: ":" },
   },
   {
     width: width_base,
@@ -536,7 +556,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Quote",
-    letter: "'",
+    letter: { rus: "э", en: "'" },
+    letterUp: { rus: "Э", en: '"' },
   },
   {
     width: width_base,
@@ -549,7 +570,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Backslash",
-    letter: "\\",
+    letter: { rus: "\\", en: "\\" },
+    letterUp: { rus: "/", en: "|" },
   },
   {
     width: width_base * 1.7,
@@ -562,7 +584,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Enter",
-    letter: "enter",
+    letter: { rus: "Enter", en: "Enter" },
+    letterUp: { rus: "Enter", en: "Enter" },
     function: enter,
   },
   //////////////  4 ряд /////////////////////////
@@ -577,7 +600,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "ShiftLeft",
-    letter: "shift",
+    letter: { rus: "Shift", en: "Shift" },
+    letterUp: { rus: "Shift", en: "Shift" },
     function: empty,
   },
   {
@@ -591,7 +615,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyZ",
-    letter: "z",
+    letter: { rus: "я", en: "z" },
   },
   {
     width: width_base,
@@ -604,7 +628,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyX",
-    letter: "x",
+    letter: { rus: "ч", en: "x" },
   },
   {
     width: width_base,
@@ -617,7 +641,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyC",
-    letter: "c",
+    letter: { rus: "с", en: "c" },
   },
   {
     width: width_base,
@@ -630,7 +654,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyV",
-    letter: "v",
+    letter: { rus: "м", en: "v" },
   },
   {
     width: width_base,
@@ -643,7 +667,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyB",
-    letter: "b",
+    letter: { rus: "и", en: "b" },
   },
   {
     width: width_base,
@@ -656,7 +680,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyN",
-    letter: "n",
+    letter: { rus: "т", en: "n" },
   },
   {
     width: width_base,
@@ -669,7 +693,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "KeyM",
-    letter: "m",
+    letter: { rus: "ь", en: "m" },
   },
   {
     width: width_base,
@@ -682,7 +706,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Comma",
-    letter: ",",
+    letter: { rus: "б", en: "," },
+    letterUp: { rus: "Б", en: "<" },
   },
   {
     width: width_base,
@@ -695,7 +720,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Period",
-    letter: ".",
+    letter: { rus: "ю", en: "." },
+    letterUp: { rus: "Ю", en: ">" },
   },
   {
     width: width_base,
@@ -708,7 +734,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Slash",
-    letter: "/",
+    letter: { rus: ".", en: "/" },
+    letterUp: { rus: ",", en: "?" },
   },
   // {
   //   width: width_base,
@@ -733,7 +760,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "ShiftRight",
-    letter: "shift",
+    letter: { rus: "Shift", en: "Shift" },
+    letterUp: { rus: "Shift", en: "Shift" },
     function: empty,
   },
   //////////////  5 ряд /////////////////////////
@@ -748,8 +776,9 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "ControlLeft",
-    letter: "ctrl",
-    function: undefined,
+    letter: { rus: "Ctrl", en: "Ctrl" },
+    letterUp: { rus: "Ctrl", en: "Ctrl" },
+    function: empty,
   },
   {
     width: width_base,
@@ -762,8 +791,9 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "AltLeft",
-    letter: "alt",
-    function: undefined,
+    letter: { rus: "Alt", en: "Alt" },
+    letterUp: { rus: "Alt", en: "Alt" },
+    function: empty,
   },
   {
     width: width_base * 1.5,
@@ -776,7 +806,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "MetaLeft",
-    letter: "win",
+    letter: { rus: "Win", en: "Win" },
+    letterUp: { rus: "Win", en: "Win" },
     function: empty,
   },
   {
@@ -790,7 +821,7 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "Space",
-    letter: " ",
+    letter: { rus: " ", en: " " },
   },
   {
     width: width_base * 1.5,
@@ -803,7 +834,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "MetaRight",
-    letter: "ctrl",
+    letter: { rus: "Win", en: "Win" },
+    letterUp: { rus: "Win", en: "Win" },
     function: empty,
   },
   {
@@ -817,8 +849,9 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "AltRight",
-    letter: "alt",
-    function: undefined,
+    letter: { rus: "Alt", en: "Alt" },
+    letterUp: { rus: "Alt", en: "Alt" },
+    function: empty,
   },
   {
     width: width_base,
@@ -831,7 +864,9 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "ArrowLeft",
-    letter: "left",
+    rotate: 360,
+    // letter: { rus: "ArrowLeft", en: "ArrowLeft" },
+    // letterUp: { rus: "Alt", en: "Alt" },
     function: goLeft,
   },
   {
@@ -845,7 +880,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "ArrowUp",
-    letter: "",
+    rotate: 90,
+    // letter: { rus: "", en: "" },
     function: goUpDown,
   },
   {
@@ -859,7 +895,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "ArrowDown",
-    letter: "",
+    rotate: -90,
+    // letter: { rus: "", en: "" },
     function: goUpDown,
   },
   {
@@ -873,7 +910,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "ArrowRight",
-    letter: "right",
+    rotate: 180,
+    // letter: { rus: "", en: "" },
     function: goRight,
   },
 ];

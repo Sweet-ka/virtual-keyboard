@@ -11,11 +11,24 @@ export function backspace(textarea) {
   }
 }
 
-export function letter(caps, shift, textarea, newLetter) {
+export function setLetter(caps, shift, newLetter, newLetterUp) {
+  if (!newLetter) return;
+  let letter;
+  if ((caps || shift) && !(caps && shift)) {
+    if (newLetterUp) {
+      letter = newLetterUp;
+    } else {
+      letter = newLetter.toUpperCase();
+    }
+  } else {
+    letter = newLetter;
+  }
+  return letter;
+}
+
+export function letter(textarea, letter) {
   let start = textarea.selectionStart;
   let end = textarea.selectionEnd;
-  let letter;
-  (caps || shift) && !(caps && shift) ? (letter = newLetter.toUpperCase()) : (letter = newLetter.toLowerCase());
   textarea.value = textarea.value.substring(0, start) + letter + textarea.value.substring(end, textarea.value.length);
   textarea.selectionStart = textarea.selectionEnd = start + 1;
 }
@@ -79,20 +92,22 @@ function createClone(textarea) {
       htmlElem = `<span>${item}</span>`;
     }
     if (index === arrChar.length - 1) {
-      htmlElem = `<span>${item}</span><span></span>`;
+      htmlElem += `<span></span>`;
     }
     span.innerHTML += htmlElem;
   });
 
   let spans = span.querySelectorAll("span");
+  if (spans.length === 0) return { rows: [], spans: [] };
+
   let rows = [];
-  let rowY = spans[0].offsetTop;
+  let rowY;
   let arrItem = [];
 
   spans.forEach((item, index) => {
     if (item.offsetTop === rowY) {
       arrItem.push(index);
-    } else if (item.offsetTop !== rowY) {
+    } else {
       rows.push(arrItem);
       arrItem = [];
       arrItem.push(index);
@@ -102,7 +117,7 @@ function createClone(textarea) {
       rows.push(arrItem);
     }
   });
-  return rows;
+  return { rows: rows, spans: spans };
 }
 
 function setNewRow(direction, curentRow, rows) {
@@ -122,8 +137,9 @@ function setNewRow(direction, curentRow, rows) {
 }
 
 export function goUpDown(textarea, letter, direction) {
-  let rows = createClone.call(this, textarea);
-
+  let clone = createClone.call(this, textarea);
+  let rows = clone.rows;
+  if (rows.length === 0) return;
   let start = textarea.selectionStart;
   let curentRow, newRow, newPos;
 

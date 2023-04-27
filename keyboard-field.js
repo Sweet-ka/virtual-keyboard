@@ -1,6 +1,6 @@
 import { Base } from "./base.js";
 import { CloneTxt } from "./clone-txt.js";
-import { letter } from "./keyboard-functions.js";
+import { letter, setLetter } from "./keyboard-functions.js";
 import { arr, gap, style_active_button } from "./keyboard.js";
 import { TextField } from "./text-field.js";
 
@@ -22,6 +22,7 @@ export class Keyboard extends Base {
   caps;
   shiftLeft = false;
   shiftRight = false;
+  langauge = "en";
 
   constructor() {
     super("div");
@@ -58,30 +59,48 @@ export class Keyboard extends Base {
     this.arr.forEach((item, index) => {
       item.x_shadow = this.set_delta_x(item.width, item.x);
       item.y_shadow = this.set_delta_y(item.height, item.y);
+
+      this.setCurrentLetter(item);
       this.art(item, item.x_delta, item.y_delta);
 
       addEventListener("keydown", (event) => {
         if (event.code !== "ArrowUp" && event.code !== "ArrowDown") this.firstPos = undefined;
         this.defaultMouse(event);
-        if (event.code === "ShiftLeft") this.shiftleft = true;
-        if (event.code === "ShiftRight") this.shiftRight = true;
+
+        if (event.code === "ShiftLeft") {
+          this.shiftLeft = true;
+        }
+        if (event.code === "ShiftRight") {
+          this.shiftRight = true;
+        }
+
+        this.changeLangauge(event, item);
+
         if (event.code == item.code) {
           item.x_delta = item.x_shadow;
           item.y_delta = item.y_shadow;
 
           this.checkCaps(item, true, event);
-          this.animate_name(index, 1);
+          this.checkShift();
           this.checkProperty(item);
+          this.animate_name(index, 1);
         }
       });
-      addEventListener("keyup", (event) => {
-        if (event.code === "ShiftLeft") this.shiftleft = false;
-        if (event.code === "ShiftRight") this.shiftRight = false;
-        if (event.code == item.code) {
-          this.checkCaps(item, false, event);
 
+      addEventListener("keyup", (event) => {
+        if (event.code === "ShiftLeft") {
+          this.shiftLeft = false;
+        }
+        if (event.code === "ShiftRight") {
+          this.shiftRight = false;
+        }
+
+        if (event.code == item.code) {
           item.x_delta = item.x_shadow;
           item.y_delta = item.y_shadow;
+
+          this.checkCaps(item, false, event);
+          this.checkShift();
           this.animate_name(index, -1);
         }
       });
@@ -96,13 +115,35 @@ export class Keyboard extends Base {
     });
   }
 
+  changeLangauge(event, item) {
+    if (event.code == item.code && event.altKey && event.ctrlKey) {
+      if (this.langauge === "en") {
+        this.langauge = "rus";
+      } else if (this.langauge === "rus") {
+        this.langauge = "en";
+      }
+    }
+  }
+
   checkProperty(item) {
     if (item.hasOwnProperty("function") && item.function !== undefined) {
       item.function.call(this, this.txt, item.letter, item.code);
     } else {
-      this.shift = this.shiftLeft || this.shiftRight;
-      letter.call(this, this.caps, this.shift, this.txt, item.letter);
+      this.setCurrentLetter(item);
+      letter(this.txt, item.newLetter);
     }
+  }
+
+  setCurrentLetter(item) {
+    let currentLetterUp;
+    let currentLetter;
+    if (item.letter) {
+      currentLetter = item.letter[this.langauge];
+    }
+    if (item.letterUp) {
+      currentLetterUp = item.letterUp[this.langauge];
+    }
+    item.newLetter = setLetter.call(this, this.caps, this.shift, currentLetter, currentLetterUp);
   }
 
   checkCaps(item, active, e) {
@@ -112,6 +153,10 @@ export class Keyboard extends Base {
       item.active = e.getModifierState("CapsLock");
       this.caps = item.active;
     }
+  }
+
+  checkShift() {
+    this.shift = this.shiftLeft || this.shiftRight;
   }
 
   defaultMouse(e) {
@@ -151,27 +196,26 @@ export class Keyboard extends Base {
           this.shiftLeft = true;
           item.active = true;
         };
+        let callShiftLeft = callShiftLeftCtx.bind(this);
+
         let callShiftRightCtx = function () {
           this.shiftRight = true;
           item.active = true;
         };
-        let callShiftLeft = callShiftLeftCtx.bind(this);
         let callShiftRight = callShiftRightCtx.bind(this);
 
         if (item.code === "ShiftLeft") {
           item.active = true;
+          this.shift = true;
           if (this.shiftLeft === false) this.animate_name(index, 1);
           this.shiftLeft = false;
-          if (!e.shiftKey) {
-            addEventListener("mousemove", callShiftLeft);
-          }
+          if (!e.shiftKey) addEventListener("mousemove", callShiftLeft);
         } else if (item.code === "ShiftRight") {
           item.active = true;
+          this.shift = true;
           if (this.shiftRight === false) this.animate_name(index, 1);
           this.shiftRight = false;
-          if (!e.shiftKey) {
-            addEventListener("mousemove", callShiftRight);
-          }
+          if (!e.shiftKey) addEventListener("mousemove", callShiftRight);
         } else {
           this.checkCaps(item, true);
           if (item.active === true) this.animate_name(index, 1);
@@ -180,6 +224,7 @@ export class Keyboard extends Base {
         this.checkProperty(item);
 
         const animate_back = function () {
+          this.checkShift();
           removeEventListener("mousemove", callShiftLeft);
           removeEventListener("mousemove", callShiftRight);
           removeEventListener("mouseup", this.animate_back_this);
@@ -237,6 +282,7 @@ export class Keyboard extends Base {
       this.ctx_back_art();
 
       arr.forEach((item) => {
+        this.setCurrentLetter(item);
         this.art(item, item.x_delta, item.y_delta);
       });
 
@@ -283,7 +329,23 @@ export class Keyboard extends Base {
     this.ctx.fillStyle = this.fillStyle_text;
     this.ctx.font = "30px sans-sherif";
     this.ctx.textAlign = "center";
-    this.ctx.fillText(el.letter, el.x + el.width / 2 + x, el.y + el.height / 2 + y + 10);
+    if (!el.rotate) {
+      this.ctx.fillText(el.newLetter, el.x + el.width / 2 + x, el.y + el.height / 2 + y + 10);
+    } else {
+      this.ctx.save();
+
+      this.ctx.translate(el.x + x + el.width / 2, el.y + y + el.height / 2);
+      this.ctx.rotate((el.rotate * Math.PI) / 180);
+      this.ctx.translate(-(el.x + x + el.width / 2), -(el.y + y + el.height / 2));
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(el.x + x + el.width / 2 - gap / 2, el.y + y + el.height / 2);
+      this.ctx.lineTo(el.x + x + el.width / 2 + gap / 2, el.y + y + el.height / 2 + gap);
+      this.ctx.lineTo(el.x + x + el.width / 2 + gap / 2, el.y + y + el.height / 2 - gap);
+
+      this.ctx.fill();
+      this.ctx.restore();
+    }
 
     this.ctx.restore();
   }
