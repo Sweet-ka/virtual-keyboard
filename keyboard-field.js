@@ -10,14 +10,15 @@ export class Keyboard extends Base {
   canvas_x;
   canvas_y;
   ctx;
-  delta_x_max = 10;
-  delta_y_max = 10;
-  inner = 0.1;
+  delta_x_max = 12;
+  delta_y_max = 12;
+  inner = 0.5;
   r = 8;
-  strokeStyle_button = "black";
-  fillStyle_button = "gray";
-  fillStyle_text = "white";
-  shadowColor_button = "black";
+  strokeStyle_button = "#7dfffd";
+  fillStyle_button = "#265c6a96";
+  fillStyle_text = "#7dfffd";
+  shadowColor_button = "#121e29";
+  shadowColor_active_button = "#7dfffd";
   animate_name;
   caps;
   shiftLeft = false;
@@ -26,16 +27,21 @@ export class Keyboard extends Base {
 
   constructor() {
     super("div");
+    this.setClass("keyboard-wrap");
+
+    this.monitor = new Base("div");
+    this.monitor.setClass("monitor");
+    this.monitor.render(this.element);
 
     this.txtField = new TextField(30, 10);
     this.txtField.element.id = "txt";
-    this.txtField.render(this.element);
+    this.txtField.render(this.monitor.element);
     this.txt = this.txtField.element;
 
     this.clone = new CloneTxt();
     this.clone.element.id = "out";
     this.clone.span.id = "sp";
-    this.clone.render(this.element);
+    this.clone.render(this.monitor.element);
 
     this.canvas = new Base("canvas");
     this.canvas.render(this.element);
@@ -96,9 +102,8 @@ export class Keyboard extends Base {
         }
 
         if (event.code == item.code) {
-          item.x_delta = item.x_shadow;
-          item.y_delta = item.y_shadow;
-
+          // item.x_delta = item.x_shadow;
+          // item.y_delta = item.y_shadow;
           this.checkCaps(item, false, event);
           this.checkShift();
           this.animate_name(index, -1);
@@ -182,6 +187,9 @@ export class Keyboard extends Base {
         coord.ey >= item.y &&
         coord.ey <= item.y + item.height
       ) {
+        this.audio = new Audio();
+        this.audio.src = "./audio-key.wav";
+        this.audio.play();
         item.x_delta = item.x_shadow;
         item.y_delta = item.y_shadow;
 
@@ -311,25 +319,44 @@ export class Keyboard extends Base {
     this.ctx.shadowColor = this.shadowColor_button;
 
     this.ctx.save();
-    el.active ? (this.ctx.fillStyle = style_active_button) : (this.ctx.fillStyle = el.style);
-    //this.ctx.shadowBlur = "5";
+    if (el.active) {
+      this.ctx.fillStyle = style_active_button;
+      this.ctx.shadowColor = this.shadowColor_active_button;
+
+      this.ctx.save();
+      this.ctx.beginPath();
+      this.ctx.shadowOffsetX = el.x_shadow - x;
+      this.ctx.shadowOffsetY = el.y_shadow - y;
+      this.ctx.shadowBlur = "100";
+      this.ctx.roundRect(el.x + x, el.y + y, el.width, el.height, [this.r]);
+      this.ctx.fill();
+      this.ctx.restore();
+    } else {
+      this.ctx.fillStyle = el.style;
+    }
     this.ctx.beginPath();
     this.ctx.shadowOffsetX = el.x_shadow - x;
     this.ctx.shadowOffsetY = el.y_shadow - y;
-
     this.ctx.roundRect(el.x + x, el.y + y, el.width, el.height, [this.r]);
     this.ctx.fill();
 
     this.ctx.shadowOffsetX = 0;
     this.ctx.shadowOffsetY = 0;
     this.ctx.shadowBlur = "0";
-    this.ctx.roundRect(el.x + x + gap, el.y + y + gap, el.width - 2 * gap, el.height - 2 * gap, [this.r]);
+    this.ctx.roundRect(
+      el.x + x + gap * this.inner,
+      el.y + y + gap * this.inner,
+      el.width - 2 * gap * this.inner,
+      el.height - 2 * gap * this.inner,
+      [this.r * this.inner]
+    );
     this.ctx.stroke();
 
     this.ctx.fillStyle = this.fillStyle_text;
-    this.ctx.font = "30px sans-sherif";
+    this.ctx.font = "36px sans-serif";
     this.ctx.textAlign = "center";
     if (!el.rotate) {
+      this.ctx.shadowColor = this.shadowColor_active_button;
       this.ctx.fillText(el.newLetter, el.x + el.width / 2 + x, el.y + el.height / 2 + y + 10);
     } else {
       this.ctx.save();
@@ -351,8 +378,25 @@ export class Keyboard extends Base {
   }
 
   ctx_back_art() {
-    this.ctx_back.fillStyle = "orange";
-    this.ctx_back.fillRect(0, 0, this.canvas_width, this.canvas_height);
+    this.ctx_back.fillStyle = this.shadowColor_button;
+    this.ctx_back.beginPath();
+    this.ctx_back.roundRect(0, 0, this.canvas_width, this.canvas_height, [this.r]);
+    this.ctx_back.fill();
+
+    this.ctx_back.beginPath();
+
+    //this.ctx_back.shadowOffsetX = this.delta_x_max;
+    // this.ctx_back.shadowOffsetY = this.delta_y_max;
+    // this.ctx_back.shadowColor = this.shadowColor_button;
+    this.ctx_back.fillStyle = "#234a5a";
+    this.ctx_back.roundRect(
+      this.delta_x_max / 2,
+      this.delta_y_max / 2,
+      this.canvas_width - this.delta_x_max,
+      this.canvas_height - this.delta_y_max * 2,
+      [this.r]
+    );
+    this.ctx_back.fill();
   }
 
   get_coord(e) {

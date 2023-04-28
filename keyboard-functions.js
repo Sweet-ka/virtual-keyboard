@@ -101,7 +101,7 @@ function createClone(textarea) {
   if (spans.length === 0) return { rows: [], spans: [] };
 
   let rows = [];
-  let rowY;
+  let rowY = spans[0].offsetTop;
   let arrItem = [];
 
   spans.forEach((item, index) => {

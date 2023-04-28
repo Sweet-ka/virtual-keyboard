@@ -1,3 +1,4 @@
+import { header } from "./header.js";
 import { main } from "./main.js";
 
 class Components {
@@ -15,4 +16,4 @@ class Components {
   }
 }
 
-export const components = new Components(main);
+export const components = new Components(header, main);

@@ -3,11 +3,11 @@ import { backspace, enter, del, tab, goLeft, goRight, goUpDown, empty } from "./
 export const width_base = 80;
 export const height_base = 80;
 
-export const gap = 8;
+export const gap = 12;
 
-export const style_base_button = "gray";
-export const style_active_button = "gold";
-export const style_space_button = "darkgray";
+export const style_base_button = "#265c6a";
+export const style_active_button = "#3eb4b9";
+export const style_space_button = "#265c6a";
 
 export const arr = [
   //////////////  1 ряд /////////////////////////
@@ -409,8 +409,8 @@ export const arr = [
     x_delta: 0,
     y_delta: 0,
     code: "CapsLock",
-    letter: { rus: "Caps Lock", en: "Caps Lock" },
-    letterUp: { rus: "Caps Lock", en: "Caps Lock" },
+    letter: { rus: "Caps", en: "Caps" },
+    letterUp: { rus: "Caps", en: "Caps" },
     active: false,
     function: empty,
   },
@@ -750,7 +750,7 @@ export const arr = [
   //   letter: "up",
   // },
   {
-    width: width_base * 3.15,
+    width: width_base * 3.2,
     height: height_base,
     style: style_space_button,
     x: gap * 2.5 + width_base * 2.5 + (width_base + gap) * 10,
@@ -903,7 +903,7 @@ export const arr = [
     width: width_base,
     height: height_base / 2,
     style: style_space_button,
-    x: 1352 - width_base,
+    x: gap * (5 + 1.8 * 3) + width_base * 1.5 * 4.5 + width_base * 5.95 + (width_base + gap) * 2,
     y: gap + (height_base + gap) * 4 + height_base / 2,
     x_shadow: 0,
     y_shadow: 0,
