@@ -102,8 +102,6 @@ export class Keyboard extends Base {
         }
 
         if (event.code == item.code) {
-          // item.x_delta = item.x_shadow;
-          // item.y_delta = item.y_shadow;
           this.checkCaps(item, false, event);
           this.checkShift();
           this.animate_name(index, -1);
@@ -385,9 +383,6 @@ export class Keyboard extends Base {
 
     this.ctx_back.beginPath();
 
-    //this.ctx_back.shadowOffsetX = this.delta_x_max;
-    // this.ctx_back.shadowOffsetY = this.delta_y_max;
-    // this.ctx_back.shadowColor = this.shadowColor_button;
     this.ctx_back.fillStyle = "#234a5a";
     this.ctx_back.roundRect(
       this.delta_x_max / 2,
