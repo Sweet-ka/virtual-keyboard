@@ -63,7 +63,6 @@ export class Keyboard extends Base {
     this.ctx_back = this.canvas.element.getContext("2d");
     this.ctx_back_art();
 
-    //localStorage.clear();
     if (localStorage.langauge) this.langauge = localStorage.langauge;
     if (localStorage.value) {
       this.txt.value = localStorage.value;
@@ -79,7 +78,7 @@ export class Keyboard extends Base {
 
       addEventListener("keydown", (event) => {
         if (event.code == item.code) {
-          new Sound("./audio-key.wav");
+          new Sound("./src/audio-key.wav");
           item.x_delta = item.x_shadow;
           item.y_delta = item.y_shadow;
 
@@ -195,7 +194,7 @@ export class Keyboard extends Base {
         coord.ey >= item.y &&
         coord.ey <= item.y + item.height
       ) {
-        new Sound("./audio-key.wav");
+        new Sound("./src/audio-key.wav");
         item.x_delta = item.x_shadow;
         item.y_delta = item.y_shadow;
 

@@ -39,10 +39,10 @@ export class Header extends Base {
     this.infoLangText.element.textContent = "Для переключения языка использовать комбинацию ctrl + alt";
 
     this.infoSysem.element.addEventListener("mouseover", () => {
-      new Sound("./facebookme.mp3");
+      new Sound("./src/facebookme.mp3");
     });
     this.infoLang.element.addEventListener("mouseover", () => {
-      new Sound("./facebookme.mp3");
+      new Sound("./src/facebookme.mp3");
     });
   }
 }
