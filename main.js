@@ -11,13 +11,6 @@ export class Main extends Base {
 
     this.keyboard = new Keyboard();
     this.keyboard.render(this.container.element);
-
-    document.addEventListener("keydown", () => {
-      this.audio = new Audio();
-      this.audio.src = "./audio-key.wav";
-
-      this.audio.play();
-    });
   }
 }
 
