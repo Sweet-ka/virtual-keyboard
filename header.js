@@ -14,7 +14,8 @@ export class Header extends Base {
     this.logo.render(this.container.element);
 
     this.logo.element.innerHTML = "<h2 class='rss'>RS School</h2>";
-    this.logo.element.innerHTML += "<h1 class='logo-name'>Virtual keyboard</h1>";
+    this.logo.element.innerHTML +=
+      "<h1 class='logo-name'>Virtual keyboard</h1>";
 
     this.info = new Base("div");
     this.info.setClass("info");
@@ -27,7 +28,8 @@ export class Header extends Base {
     this.infoSysemText = new Base("div");
     this.infoSysemText.setClass("system-text");
     this.infoSysemText.render(this.infoSysem.element);
-    this.infoSysemText.element.textContent = "Клавиатура создана в операционной системе Windows";
+    this.infoSysemText.element.textContent =
+      "Клавиатура создана в операционной системе Windows";
 
     this.infoLang = new Base("div");
     this.infoLang.setClass("info-lang");
@@ -36,7 +38,8 @@ export class Header extends Base {
     this.infoLangText = new Base("div");
     this.infoLangText.setClass("lang-text");
     this.infoLangText.render(this.infoLang.element);
-    this.infoLangText.element.textContent = "Для переключения языка использовать комбинацию ctrl + alt";
+    this.infoLangText.element.textContent =
+      "Для переключения языка использовать комбинацию ctrl + alt";
 
     this.infoSysem.element.addEventListener("mouseover", () => {
       new Sound("./src/facebookme.mp3");

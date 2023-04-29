@@ -138,7 +138,7 @@ export class Keyboard extends Base {
   }
 
   checkProperty(item) {
-    if (item.hasOwnProperty("function") && item.function !== undefined) {
+    if (item.function && item.function !== undefined) {
       item.function.call(this, this.txt, item.letter, item.code);
     } else {
       this.setCurrentLetter(item);
@@ -406,15 +406,4 @@ export class Keyboard extends Base {
     this.canvas_y = this.canvas.element.getBoundingClientRect().y;
     return { ex: e.clientX - this.canvas_x, ey: e.clientY - this.canvas_y };
   }
-
-  // infoSound() {
-  //   this.audio = new Audio();
-  //   this.audio.src = "./audio-key.wav";
-  //   this.audio.play();
-
-  //   let play = this.audio.play();
-  //   if (play) {
-  //     play.catch((e) => {}).then(() => {});
-  //   }
-  // }
 }

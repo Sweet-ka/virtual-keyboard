@@ -5,7 +5,11 @@ export class Sound {
 
     let play = this.audio.play();
     if (play) {
-      play.catch((e) => {}).then(() => {});
+      play
+        .catch((e) => {
+          console.log(e);
+        })
+        .then(() => {});
     }
   }
 }

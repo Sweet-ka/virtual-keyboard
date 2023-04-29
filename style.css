@@ -18,7 +18,8 @@ body {
   font-size: 2rem;
   font-weight: 600;
   color: #7dfffd;
-  text-shadow: 0px 0px 5px #265c6a, 0px 0px 10px #7dfffd, 0px 0px 10px #7dfffd, 0px 0px 20px #7dfffd;
+  text-shadow: 0px 0px 5px #265c6a, 0px 0px 10px #7dfffd, 0px 0px 10px #7dfffd,
+    0px 0px 20px #7dfffd;
   display: flex;
   align-items: baseline;
   justify-content: space-between;

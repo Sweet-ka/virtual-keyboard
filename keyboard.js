@@ -1,4 +1,13 @@
-import { backspace, enter, del, tab, goLeft, goRight, goUpDown, empty } from "./keyboard-functions.js";
+import {
+  backspace,
+  enter,
+  del,
+  tab,
+  goLeft,
+  goRight,
+  goUpDown,
+  empty,
+} from "./keyboard-functions.js";
 
 export const width_base = 80;
 export const height_base = 80;
@@ -827,7 +836,11 @@ export const arr = [
     width: width_base * 1.5,
     height: height_base,
     style: style_space_button,
-    x: gap * 4 + width_base * 1.5 * 2 + width_base * 5.95 + (width_base + gap) * 1,
+    x:
+      gap * 4 +
+      width_base * 1.5 * 2 +
+      width_base * 5.95 +
+      (width_base + gap) * 1,
     y: gap + (height_base + gap) * 4,
     x_shadow: 0,
     y_shadow: 0,
@@ -842,7 +855,11 @@ export const arr = [
     width: width_base,
     height: height_base,
     style: style_space_button,
-    x: gap * 5 + width_base * 1.5 * 3 + width_base * 5.95 + (width_base + gap) * 1,
+    x:
+      gap * 5 +
+      width_base * 1.5 * 3 +
+      width_base * 5.95 +
+      (width_base + gap) * 1,
     y: gap + (height_base + gap) * 4,
     x_shadow: 0,
     y_shadow: 0,
@@ -857,7 +874,11 @@ export const arr = [
     width: width_base,
     height: height_base / 2,
     style: style_space_button,
-    x: gap * (5 + 1.8) + width_base * 1.5 * 3 + width_base * 5.95 + (width_base + gap) * 2,
+    x:
+      gap * (5 + 1.8) +
+      width_base * 1.5 * 3 +
+      width_base * 5.95 +
+      (width_base + gap) * 2,
     y: gap + (height_base + gap) * 4 + height_base / 2,
     x_shadow: 0,
     y_shadow: 0,
@@ -873,7 +894,11 @@ export const arr = [
     width: width_base,
     height: height_base / 2,
     style: style_space_button,
-    x: gap * (5 + 1.8 * 2) + width_base * 1.5 * 3 + width_base * 5.95 + (width_base + gap) * 3,
+    x:
+      gap * (5 + 1.8 * 2) +
+      width_base * 1.5 * 3 +
+      width_base * 5.95 +
+      (width_base + gap) * 3,
     y: gap + (height_base + gap) * 4,
     x_shadow: 0,
     y_shadow: 0,
@@ -888,7 +913,11 @@ export const arr = [
     width: width_base,
     height: height_base / 2,
     style: style_space_button,
-    x: gap * (5 + 1.8 * 2) + width_base * 1.5 * 3 + width_base * 5.95 + (width_base + gap) * 3,
+    x:
+      gap * (5 + 1.8 * 2) +
+      width_base * 1.5 * 3 +
+      width_base * 5.95 +
+      (width_base + gap) * 3,
     y: gap + (height_base + gap) * 4 + height_base / 2,
     x_shadow: 0,
     y_shadow: 0,
@@ -903,7 +932,11 @@ export const arr = [
     width: width_base,
     height: height_base / 2,
     style: style_space_button,
-    x: gap * (5 + 1.8 * 3) + width_base * 1.5 * 4.5 + width_base * 5.95 + (width_base + gap) * 2,
+    x:
+      gap * (5 + 1.8 * 3) +
+      width_base * 1.5 * 4.5 +
+      width_base * 5.95 +
+      (width_base + gap) * 2,
     y: gap + (height_base + gap) * 4 + height_base / 2,
     x_shadow: 0,
     y_shadow: 0,
