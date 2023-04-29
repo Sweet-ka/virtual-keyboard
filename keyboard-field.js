@@ -2,6 +2,7 @@ import { Base } from "./base.js";
 import { CloneTxt } from "./clone-txt.js";
 import { letter, setLetter } from "./keyboard-functions.js";
 import { arr, gap, style_active_button } from "./keyboard.js";
+import { Sound } from "./sound.js";
 import { TextField } from "./text-field.js";
 
 export class Keyboard extends Base {
@@ -62,6 +63,13 @@ export class Keyboard extends Base {
     this.ctx_back = this.canvas.element.getContext("2d");
     this.ctx_back_art();
 
+    //localStorage.clear();
+    if (localStorage.langauge) this.langauge = localStorage.langauge;
+    if (localStorage.value) {
+      this.txt.value = localStorage.value;
+      this.txt.selectionStart = this.txt.selectionEnd = this.txt.value.length;
+    }
+
     this.arr.forEach((item, index) => {
       item.x_shadow = this.set_delta_x(item.width, item.x);
       item.y_shadow = this.set_delta_y(item.height, item.y);
@@ -70,6 +78,17 @@ export class Keyboard extends Base {
       this.art(item, item.x_delta, item.y_delta);
 
       addEventListener("keydown", (event) => {
+        if (event.code == item.code) {
+          new Sound("./audio-key.wav");
+          item.x_delta = item.x_shadow;
+          item.y_delta = item.y_shadow;
+
+          this.checkCaps(item, true, event);
+          this.checkShift();
+          this.checkProperty(item);
+          this.animate_name(index, 1);
+        }
+
         if (event.code !== "ArrowUp" && event.code !== "ArrowDown") this.firstPos = undefined;
         this.defaultMouse(event);
 
@@ -81,16 +100,6 @@ export class Keyboard extends Base {
         }
 
         this.changeLangauge(event, item);
-
-        if (event.code == item.code) {
-          item.x_delta = item.x_shadow;
-          item.y_delta = item.y_shadow;
-
-          this.checkCaps(item, true, event);
-          this.checkShift();
-          this.checkProperty(item);
-          this.animate_name(index, 1);
-        }
       });
 
       addEventListener("keyup", (event) => {
@@ -126,6 +135,7 @@ export class Keyboard extends Base {
         this.langauge = "en";
       }
     }
+    localStorage.langauge = this.langauge;
   }
 
   checkProperty(item) {
@@ -185,9 +195,7 @@ export class Keyboard extends Base {
         coord.ey >= item.y &&
         coord.ey <= item.y + item.height
       ) {
-        this.audio = new Audio();
-        this.audio.src = "./audio-key.wav";
-        this.audio.play();
+        new Sound("./audio-key.wav");
         item.x_delta = item.x_shadow;
         item.y_delta = item.y_shadow;
 
@@ -399,4 +407,15 @@ export class Keyboard extends Base {
     this.canvas_y = this.canvas.element.getBoundingClientRect().y;
     return { ex: e.clientX - this.canvas_x, ey: e.clientY - this.canvas_y };
   }
+
+  // infoSound() {
+  //   this.audio = new Audio();
+  //   this.audio.src = "./audio-key.wav";
+  //   this.audio.play();
+
+  //   let play = this.audio.play();
+  //   if (play) {
+  //     play.catch((e) => {}).then(() => {});
+  //   }
+  // }
 }

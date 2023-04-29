@@ -9,6 +9,7 @@ export function backspace(textarea) {
     textarea.value = textarea.value.substring(0, start) + textarea.value.substring(end, textarea.value.length);
     textarea.selectionStart = textarea.selectionEnd = start;
   }
+  localStorage.value = textarea.value;
 }
 
 export function setLetter(caps, shift, newLetter, newLetterUp) {
@@ -31,6 +32,7 @@ export function letter(textarea, letter) {
   let end = textarea.selectionEnd;
   textarea.value = textarea.value.substring(0, start) + letter + textarea.value.substring(end, textarea.value.length);
   textarea.selectionStart = textarea.selectionEnd = start + 1;
+  localStorage.value = textarea.value;
 }
 
 export function empty() {}
@@ -40,6 +42,7 @@ export function del(textarea) {
   let end = textarea.selectionEnd;
   textarea.value = textarea.value.substring(0, start) + textarea.value.substring(end + 1, textarea.value.length);
   textarea.selectionStart = textarea.selectionEnd = start;
+  localStorage.value = textarea.value;
 }
 
 export function enter(textarea) {
@@ -47,6 +50,7 @@ export function enter(textarea) {
   let end = textarea.selectionEnd;
   textarea.value = textarea.value.substring(0, start) + "\n" + textarea.value.substring(end, textarea.value.length);
   textarea.selectionStart = textarea.selectionEnd = start + 1;
+  localStorage.value = textarea.value;
 }
 
 export function tab(textarea) {
@@ -56,6 +60,7 @@ export function tab(textarea) {
   textarea.value =
     textarea.value.substring(0, start) + " ".repeat(nSpaces) + textarea.value.substring(end, textarea.value.length);
   textarea.selectionStart = textarea.selectionEnd = start + nSpaces;
+  localStorage.value = textarea.value;
 }
 
 export function goLeft(textarea) {

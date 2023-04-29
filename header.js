@@ -1,4 +1,5 @@
 import { Base } from "./base.js";
+import { Sound } from "./sound.js";
 
 export class Header extends Base {
   constructor() {
@@ -38,16 +39,11 @@ export class Header extends Base {
     this.infoLangText.element.textContent = "Для переключения языка использовать комбинацию ctrl + alt";
 
     this.infoSysem.element.addEventListener("mouseover", () => {
-      this.audio = new Audio();
-      this.audio.src = "./facebookme.mp3";
-      this.audio.play();
+      new Sound("./facebookme.mp3");
     });
     this.infoLang.element.addEventListener("mouseover", () => {
-      this.audio = new Audio();
-      this.audio.src = "./facebookme.mp3";
-      this.audio.play();
+      new Sound("./facebookme.mp3");
     });
   }
 }
-
 export const header = new Header();
