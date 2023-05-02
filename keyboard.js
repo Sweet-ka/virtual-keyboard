@@ -30,7 +30,7 @@ export const arr = [
     y_shadow: 0,
     x_delta: 0,
     y_delta: 0,
-    code: "IntlBackslash",
+    code: "Backquote",
     letter: { rus: "ё", en: "`" },
     letterUp: { rus: "Ё", en: "~" },
   },
