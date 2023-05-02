@@ -1,2 +1,2 @@
 RSS-Virtual-Keyboard
-https://sweet-ka.github.io/RSS-Virtual-Keyboard/index.html
+https://sweet-ka.github.io/virtual-keyboard/index.html
