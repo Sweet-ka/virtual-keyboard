@@ -6,8 +6,8 @@ import { Sound } from "./sound.js";
 import { TextField } from "./text-field.js";
 
 export class Keyboard extends Base {
-  canvas_width = 1420;
-  canvas_height = 500;
+  canvas_width = 1120;
+  canvas_height = 375;
   canvas_x;
   canvas_y;
   ctx;
@@ -88,7 +88,8 @@ export class Keyboard extends Base {
           this.animate_name(index, 1);
         }
 
-        if (event.code !== "ArrowUp" && event.code !== "ArrowDown") this.firstPos = undefined;
+        if (event.code !== "ArrowUp" && event.code !== "ArrowDown")
+          this.firstPos = undefined;
         this.defaultMouse(event);
 
         if (event.code === "ShiftLeft") {
@@ -155,7 +156,13 @@ export class Keyboard extends Base {
     if (item.letterUp) {
       currentLetterUp = item.letterUp[this.langauge];
     }
-    item.newLetter = setLetter.call(this, this.caps, this.shift, currentLetter, currentLetterUp);
+    item.newLetter = setLetter.call(
+      this,
+      this.caps,
+      this.shift,
+      currentLetter,
+      currentLetterUp
+    );
   }
 
   checkCaps(item, active, e) {
@@ -198,7 +205,8 @@ export class Keyboard extends Base {
         item.x_delta = item.x_shadow;
         item.y_delta = item.y_shadow;
 
-        if (item.code !== "ArrowUp" && item.code !== "ArrowDown") this.firstPos = undefined;
+        if (item.code !== "ArrowUp" && item.code !== "ArrowDown")
+          this.firstPos = undefined;
 
         if (item.code === "CapsLock") {
           this.setActive(item);
@@ -256,7 +264,9 @@ export class Keyboard extends Base {
         this.animate_back_this = animate_back.bind(this);
 
         if (
-          (item.code !== "CapsLock" && item.code !== "ShiftLeft" && item.code !== "ShiftRight") ||
+          (item.code !== "CapsLock" &&
+            item.code !== "ShiftLeft" &&
+            item.code !== "ShiftRight") ||
           item.active === false
         ) {
           addEventListener("mouseup", this.animate_back_this);
@@ -310,11 +320,15 @@ export class Keyboard extends Base {
   }
 
   set_delta_x(w, x) {
-    return (((this.canvas_width - w) / 2 - x) / this.canvas_width) * this.delta_x_max;
+    return (
+      (((this.canvas_width - w) / 2 - x) / this.canvas_width) * this.delta_x_max
+    );
   }
 
   set_delta_y(h, y) {
-    return ((this.canvas_height - h - y / 2) / this.canvas_height) * this.delta_y_max;
+    return (
+      ((this.canvas_height - h - y / 2) / this.canvas_height) * this.delta_y_max
+    );
   }
 
   art(el, x, y) {
@@ -358,22 +372,38 @@ export class Keyboard extends Base {
     this.ctx.stroke();
 
     this.ctx.fillStyle = this.fillStyle_text;
-    this.ctx.font = "36px sans-serif";
+    this.ctx.font = "28px sans-serif";
     this.ctx.textAlign = "center";
     if (!el.rotate) {
       this.ctx.shadowColor = this.shadowColor_active_button;
-      this.ctx.fillText(el.newLetter, el.x + el.width / 2 + x, el.y + el.height / 2 + y + 10);
+      this.ctx.fillText(
+        el.newLetter,
+        el.x + el.width / 2 + x,
+        el.y + el.height / 2 + y + 10
+      );
     } else {
       this.ctx.save();
 
       this.ctx.translate(el.x + x + el.width / 2, el.y + y + el.height / 2);
       this.ctx.rotate((el.rotate * Math.PI) / 180);
-      this.ctx.translate(-(el.x + x + el.width / 2), -(el.y + y + el.height / 2));
+      this.ctx.translate(
+        -(el.x + x + el.width / 2),
+        -(el.y + y + el.height / 2)
+      );
 
       this.ctx.beginPath();
-      this.ctx.moveTo(el.x + x + el.width / 2 - gap / 2, el.y + y + el.height / 2);
-      this.ctx.lineTo(el.x + x + el.width / 2 + gap / 2, el.y + y + el.height / 2 + gap);
-      this.ctx.lineTo(el.x + x + el.width / 2 + gap / 2, el.y + y + el.height / 2 - gap);
+      this.ctx.moveTo(
+        el.x + x + el.width / 2 - gap / 2,
+        el.y + y + el.height / 2
+      );
+      this.ctx.lineTo(
+        el.x + x + el.width / 2 + gap / 2,
+        el.y + y + el.height / 2 + gap
+      );
+      this.ctx.lineTo(
+        el.x + x + el.width / 2 + gap / 2,
+        el.y + y + el.height / 2 - gap
+      );
 
       this.ctx.fill();
       this.ctx.restore();
@@ -385,7 +415,9 @@ export class Keyboard extends Base {
   ctx_back_art() {
     this.ctx_back.fillStyle = this.shadowColor_button;
     this.ctx_back.beginPath();
-    this.ctx_back.roundRect(0, 0, this.canvas_width, this.canvas_height, [this.r]);
+    this.ctx_back.roundRect(0, 0, this.canvas_width, this.canvas_height, [
+      this.r,
+    ]);
     this.ctx_back.fill();
 
     this.ctx_back.beginPath();
@@ -395,7 +427,7 @@ export class Keyboard extends Base {
       this.delta_x_max / 2,
       this.delta_y_max / 2,
       this.canvas_width - this.delta_x_max,
-      this.canvas_height - this.delta_y_max * 2,
+      this.canvas_height - this.delta_y_max,
       [this.r]
     );
     this.ctx_back.fill();

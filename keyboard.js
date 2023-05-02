@@ -9,10 +9,10 @@ import {
   empty,
 } from "./keyboard-functions.js";
 
-export const width_base = 80;
-export const height_base = 80;
+export const width_base = 62.5;
+export const height_base = 62.5;
 
-export const gap = 12;
+export const gap = 10.1;
 
 export const style_base_button = "#265c6a";
 export const style_active_button = "#3eb4b9";
